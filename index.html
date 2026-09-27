@@ -12,6 +12,23 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <div class="welcome-gate" id="welcomeGate">
+    <div class="gate-card">
+      <div class="gate-kicker">this little place is just for you ♡</div>
+      <div class="gate-heart">♡</div>
+      <h1>Before you come in...</h1>
+      <p>There is one tiny thing only <em>you</em> should know.</p>
+      <form id="unlockForm" autocomplete="off">
+        <label for="secretName">What do I call you?</label>
+        <input id="secretName" name="secretName" type="text" inputmode="text" autocapitalize="none" spellcheck="false" placeholder="type it here..." maxlength="30" required />
+        <button type="submit">open my heart →</button>
+        <p class="unlock-message" id="unlockMessage" aria-live="polite"></p>
+      </form>
+      <button class="gate-music" id="gateMusic" type="button">♪ play our song</button>
+    </div>
+  </div>
+
   <div class="noise"></div>
   <div class="cursor-heart">♡</div>
   <div class="floating-hearts" aria-hidden="true"></div>
@@ -90,11 +107,11 @@
       </div>
     </section>
 
-    <section class="gallery section">
+    <section class="gallery section" id="memories">
       <div class="section-label">03 / evidence that we're cute</div>
       <div class="gallery-intro reveal">
         <h2>little pieces of <em>us.</em></h2>
-        <p>Some memories don't need a caption.</p>
+        <p>Tap a picture. Some of them have something to say.</p>
       </div>
       <div class="polaroid-grid">
         <figure class="polaroid p1 reveal"><div class="image-box"><img src="assets/20260913145619135.jpg" alt="Aruni" /><span>you ♡</span></div><figcaption>one of my favourite pictures of us</figcaption></figure>
@@ -114,6 +131,7 @@
     </section>
 
     <section class="reasons section">
+      <div class="interaction-note reveal">04 / tap around — I hid a few little things for you</div>
       <div class="section-label">04 / things I don't say enough</div>
       <div class="reason-stage">
         <button class="reason-card active">I love spending time with you.</button>
@@ -123,6 +141,10 @@
         <button class="reason-card">I love you even on the difficult days.</button>
       </div>
       <p class="tap-hint">tap the cards ♡</p>
+      <div class="secret-reveal reveal">
+        <button class="secret-button" id="secretButton" type="button">there's one more thing here...</button>
+        <p id="secretText" class="secret-text" hidden>I hope you know that even when I don't say it properly, you matter to me more than I manage to show. ♡</p>
+      </div>
     </section>
 
     <section class="promise section">
@@ -131,6 +153,8 @@
         <p class="eyebrow">05 / what I promise to try</p>
         <h2>I'll talk.<br>I'll listen.<br>I'll try.</h2>
         <p>Not perfectly. Not overnight. But genuinely.</p>
+        <button class="promise-button" id="promiseButton" type="button">tap if you believe me</button>
+        <p id="promiseResponse" class="promise-response" aria-live="polite"></p>
         <p>I don't want our fights to become the story of us. I want the story to be all the little moments in between them — the laughing, the teasing, the hugs, the dates, and all the ordinary days that somehow became special because you were there.</p>
       </div>
     </section>
@@ -149,6 +173,12 @@
       </div>
     </section>
   </main>
+
+  <div class="photo-lightbox" id="photoLightbox" hidden>
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close photo">×</button>
+    <img id="lightboxImage" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
 
   <footer>
     made with a stupid amount of love ♡<br>
