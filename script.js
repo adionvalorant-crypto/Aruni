@@ -49,29 +49,40 @@ function init(){
   var message=document.getElementById('unlockMessage');
 
   function accepted(value){
-    return /^bhondu+$/i.test(String(value).replace(/\s/g,''));
+    var clean=String(value || '').trim().toLowerCase().replace(/\s+/g,'');
+    return /^bhond?u+$/i.test(clean) || /^bhondu+$/i.test(clean);
   }
 
   function unlock(){
-    if(accepted(input.value)){
+    var value=input ? input.value : '';
+    if(accepted(value)){
       unlocked=true;
-      message.textContent='Good. You know. 😒';
+      if(message){message.textContent='Good. You know. 😒';}
       var a=getAudio();
-      a.currentTime=0;
+      try{a.currentTime=0;}catch(e){}
       var playPromise=a.play();
-      if(playPromise){playPromise.then(function(){
-        var mb=document.getElementById('musicBtn');
-        if(mb){mb.textContent='♫';}
-      }).catch(function(){});}
+      if(playPromise && playPromise.catch){playPromise.catch(function(){});}
       setTimeout(function(){showSlide(1,1);},250);
     }else{
-      message.textContent='Nope. Try again.';
-      input.select();
+      if(message){message.textContent='Nope. Try again.';}
+      if(input){input.focus();input.select();}
     }
   }
-  if(unlockButton){unlockButton.onclick=unlock;}
-  if(input){input.addEventListener('keydown',function(event){if(event.key==='Enter'){event.preventDefault();unlock();}});}
 
+  if(unlockButton){unlockButton.addEventListener('click',function(event){
+    event.preventDefault();
+    unlock();
+  });}
+  if(form){form.addEventListener('submit',function(event){
+    event.preventDefault();
+    unlock();
+  });}
+  if(input){input.addEventListener('keydown',function(event){
+    if(event.key==='Enter'){
+      event.preventDefault();
+      unlock();
+    }
+  });}
   var audio=document.getElementById('siteSong');
   function getAudio(){
     if(!audio){
