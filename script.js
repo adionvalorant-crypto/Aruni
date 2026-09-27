@@ -269,6 +269,42 @@ function init(){
     });
   }
 
+  var secretHeart=document.getElementById('secretHeart');
+  var heartNote=document.getElementById('heartNote');
+  var holdTimer=null;
+  if(secretHeart){
+    secretHeart.onclick=function(){
+      interactions++;
+      if(heartNote){heartNote.textContent='still you. every single time.';heartNote.classList.add('show');}
+      setTimeout(function(){if(heartNote)heartNote.classList.remove('show');},2600);
+    };
+    secretHeart.onpointerdown=function(){
+      holdTimer=setTimeout(function(){
+        discoveries++;
+        if(heartNote){heartNote.textContent='20.03.2026 — still my favourite date.';heartNote.classList.add('show');}
+      },1200);
+    };
+    ['pointerup','pointerleave','pointercancel'].forEach(function(ev){
+      secretHeart.addEventListener(ev,function(){clearTimeout(holdTimer);});
+    });
+  }
+
+  var hiddenWords='';
+  document.addEventListener('keydown',function(e){
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
+    hiddenWords=(hiddenWords+e.key.toLowerCase()).slice(-6);
+    if(hiddenWords==='taobao'){
+      discoveries++;
+      var detail=document.getElementById('cardDetail');
+      if(detail){
+        var old=detail.textContent;
+        detail.textContent='Tao Bao. First date. Still one of my favourite little facts about us.';
+        setTimeout(function(){detail.textContent=old;},4200);
+      }
+      hiddenWords='';
+    }
+  });
+
   var restart=document.getElementById('restart');
   if(restart){
     restart.onclick=function(){
