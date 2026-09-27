@@ -30,5 +30,3 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;ba
 
 .tap-heart{position:fixed;z-index:100;pointer-events:none;color:var(--deep);font-size:18px;line-height:1;animation:heartPop .9s cubic-bezier(.2,.8,.2,1) forwards;text-shadow:0 4px 14px #a9365233}
 .date-card,.gallery-arrow,.photo-dot,.reason-buttons button,.reveal-button,.big-button,.next-prompt,.restart,.song-button,.deck-controls>button{position:relative}
-.date-card:after,.gallery-arrow:after,.reason-buttons button:after,.reveal-button:after,.big-button:after{content:'tap';position:absolute;opacity:.55;font:7px var(--mono);letter-spacing:.08em;color:var(--deep);right:9px;bottom:7px;text-transform:uppercase}
-.date-card.featured:after,.big-button:after{color:white}
