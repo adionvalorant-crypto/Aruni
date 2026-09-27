@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 <audio id="siteSong" preload="auto" loop src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
@@ -92,7 +92,7 @@
 
   <section class="slide gallery-slide" data-slide="5">
     <div class="slide-no">05</div>
-    <div class="gallery-head"><span class="mini">THE PHOTO DUMP</span><h2>little pieces of <em>us.</em></h2><p>The photo, dots, and arrows all work.</p></div>
+    <div class="gallery-head"><span class="mini">THE PHOTO DUMP</span><h2>little pieces of <em>us.</em></h2><p>The photo, dots, and arrows all work.</p><div class="photo-reactions"><button data-reaction="❤️">❤️</button><button data-reaction="😂">😂</button><button data-reaction="😭">😭</button></div><p class="reaction-response" id="reactionResponse"></p></div>
     <div class="photo-stage">
       <button class="gallery-arrow prev" id="prevPhoto" type="button">←</button>
       <figure class="big-polaroid tilt" id="mainPhoto">
@@ -105,7 +105,20 @@
     <div class="photo-dots" id="photoDots"></div>
   </section>
 
-  <section class="slide reasons-slide" data-slide="6">
+  <section class="slide mini-game-slide" data-slide="6">
+    <div class="slide-no">06</div>
+    <span class="mini">A VERY SERIOUS TEST</span>
+    <h2 class="center-title">how well do you remember?</h2>
+    <div class="quiz-box" id="quizBox">
+      <p class="quiz-question" id="quizQuestion">When did we officially become us?</p>
+      <div class="quiz-options" id="quizOptions">
+        <button data-answer="wrong">19.03.2026</button><button data-answer="correct">20.03.2026</button><button data-answer="wrong">Tao Bao day</button>
+      </div>
+      <p class="quiz-result" id="quizResult"></p>
+    </div>
+  </section>
+
+  <section class="slide reasons-slide" data-slide="10">
     <div class="slide-no">06</div>
     <span class="mini">THINGS I PROBABLY SHOULD SAY MORE</span>
     <h2 class="center-title">choose one.</h2>
@@ -130,9 +143,31 @@
     </div>
   </section>
 
-  <section class="slide final-slide" data-slide="8">
+  <section class="slide fight-slide" data-slide="10">
+    <div class="slide-no">10</div>
+    <span class="mini">THE FIGHT SIMULATOR</span>
+    <h2 class="center-title">pick what usually happens.</h2>
+    <div class="fight-options">
+      <button>I overthink.</button><button>You go quiet.</button><button>Somehow both.</button>
+    </div>
+    <div class="fight-result" id="fightResult">Choose wisely.</div>
+  </section>
+
+  <section class="slide openwhen-slide" data-slide="11">
+    <div class="slide-no">11</div>
+    <span class="mini">OPEN WHEN</span>
+    <h2 class="center-title">pick one. obviously.</h2>
+    <div class="envelopes">
+      <button data-open="angry">when you're angry at me</button>
+      <button data-open="miss">when you miss me</button>
+      <button data-open="bored">when you're bored</button>
+    </div>
+    <div class="openwhen-result" id="openWhenResult"></div>
+  </section>
+
+  <section class="slide final-slide" data-slide="12">
     <div class="final-photo"><img src="assets/PXL_20260925_072819836.jpg" alt="Us"></div>
-    <div class="final-copy">
+    <div class="final-copy"><div class="stats" id="interactionStats"></div>
       <span class="mini">THAT'S IT. ALMOST.</span>
       <h2>I'm still<br><em>choosing us.</em></h2>
       <p>I'm sorry for the times I made you feel otherwise.</p>
@@ -149,7 +184,7 @@
   <button id="nextSlide" type="button" aria-label="Next slide">→</button>
   <button class="music-btn" id="musicBtn" type="button">♪</button>
 </nav>
-<div class="slide-counter" id="slideCounter">01 / 09</div>
-<script src="script.js?v=9"></script>
+<div class="slide-counter" id="slideCounter">01 / 13</div>
+<script src="script.js?v=10"></script>
 </body>
 </html>
