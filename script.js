@@ -1,90 +1,200 @@
-document.addEventListener('DOMContentLoaded',()=>{
-const slides=[...document.querySelectorAll('.slide')];
-let current=0, unlocked=false;
-const counter=document.getElementById('slideCounter'), progress=document.getElementById('progress');
-const prev=document.getElementById('prevSlide'), next=document.getElementById('nextSlide');
+(function(){
+'use strict';
 
-function showSlide(n){
-  if(!unlocked && n>0) return;
-  current=Math.max(0,Math.min(slides.length-1,n));
-  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
-  counter.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
-  progress.style.setProperty('--progress',((current+1)/slides.length*100)+'%');
-  prev.disabled=current===0; next.disabled=current===slides.length-1;
+function init(){
+  var slides=document.querySelectorAll('.slide');
+  var current=0;
+  var unlocked=false;
+
+  var counter=document.getElementById('slideCounter');
+  var progress=document.getElementById('progress');
+  var prev=document.getElementById('prevSlide');
+  var next=document.getElementById('nextSlide');
+
+  function showSlide(n){
+    if(!unlocked && n>0){return;}
+    if(n<0){n=0;}
+    if(n>=slides.length){n=slides.length-1;}
+    current=n;
+    for(var i=0;i<slides.length;i++){
+      slides[i].classList.toggle('active',i===current);
+    }
+    if(counter){counter.textContent=('0'+(current+1)).slice(-2)+' / '+('0'+slides.length).slice(-2);}
+    if(progress){progress.style.setProperty('--progress',((current+1)/slides.length*100)+'%');}
+    if(prev){prev.disabled=current===0;}
+    if(next){next.disabled=current===slides.length-1;}
+  }
+
+  function go(delta){showSlide(current+delta);}
+
+  if(prev){prev.onclick=function(){go(-1);};}
+  if(next){next.onclick=function(){go(1);};}
+
+  var nextButtons=document.querySelectorAll('[data-next]');
+  for(var n=0;n<nextButtons.length;n++){
+    nextButtons[n].onclick=function(){go(1);};
+  }
+
+  var form=document.getElementById('unlockForm');
+  var input=document.getElementById('secretName');
+  var message=document.getElementById('unlockMessage');
+
+  function accepted(value){
+    return /^bhondu+$/i.test(String(value).replace(/\s/g,''));
+  }
+
+  if(form){
+    form.onsubmit=function(event){
+      event.preventDefault();
+      if(accepted(input.value)){
+        unlocked=true;
+        message.textContent='Good. You know. 😒';
+        setTimeout(function(){showSlide(1);},250);
+      }else{
+        message.textContent='Nope. Try again.';
+        input.select();
+      }
+      return false;
+    };
+  }
+
+  var audio=null;
+  function getAudio(){
+    if(!audio){
+      audio=new Audio('assets/Those_Eyes_-_New_West_(mp3.pm).mp3');
+      audio.loop=true;
+      audio.volume=0.4;
+    }
+    return audio;
+  }
+  function toggleMusic(){
+    var a=getAudio();
+    if(a.paused){
+      a.play().then(function(){
+        var mb=document.getElementById('musicBtn');
+        if(mb){mb.textContent='♫';}
+      }).catch(function(){});
+    }else{
+      a.pause();
+      var mb2=document.getElementById('musicBtn');
+      if(mb2){mb2.textContent='♪';}
+    }
+  }
+  var music=document.getElementById('musicBtn');
+  var gateMusic=document.getElementById('gateMusic');
+  if(music){music.onclick=toggleMusic;}
+  if(gateMusic){gateMusic.onclick=toggleMusic;}
+
+  var loveReveal=document.getElementById('loveReveal');
+  if(loveReveal){
+    loveReveal.onclick=function(){
+      var line=document.getElementById('loveLine');
+      line.classList.toggle('show');
+      loveReveal.textContent=line.classList.contains('show')?'♡ I meant every word':'one thing, though →';
+    };
+  }
+
+  var dateCards=document.querySelectorAll('.date-card');
+  for(var d=0;d<dateCards.length;d++){
+    dateCards[d].onclick=function(){
+      for(var j=0;j<dateCards.length;j++){dateCards[j].classList.remove('selected');}
+      this.classList.add('selected');
+      var detail=document.getElementById('cardDetail');
+      if(detail){detail.textContent=this.getAttribute('data-detail')||'';}
+    };
+  }
+
+  var photos=[
+    ['20260913145619135.jpg','one of my favourite pictures of us'],
+    ['20260913145620022.jpg','you looked pretty here'],
+    ['20260913145623476.jpg','just us'],
+    ['20260913145623805.jpg','one of those moments'],
+    ['PXL_20260912_064556914.jpg','you'],
+    ['PXL_20260912_064649801.jpg','this face'],
+    ['PXL_20260915_085033379.jpg','you, being you'],
+    ['PXL_20260915_085042633.MP.jpg','a little moment together'],
+    ['PXL_20260925_072819836.jpg','you in yellow'],
+    ['PXL_20260925_072822775.jpg','another favourite'],
+    ['PXL_20260925_072831129.jpg','pretty as always'],
+    ['PXL_20260925_114406222.jpg','one more memory']
+  ];
+  var photoIndex=0;
+  var image=document.getElementById('galleryImage');
+  var caption=document.getElementById('galleryCaption');
+  var photoCounter=document.getElementById('photoCounter');
+  var dots=document.getElementById('photoDots');
+
+  function setPhoto(i){
+    photoIndex=(i+photos.length)%photos.length;
+    image.src='assets/'+photos[photoIndex][0];
+    caption.textContent=photos[photoIndex][1];
+    photoCounter.textContent=('0'+(photoIndex+1)).slice(-2)+' / 12';
+    var allDots=document.querySelectorAll('.photo-dot');
+    for(var k=0;k<allDots.length;k++){allDots[k].classList.toggle('active',k===photoIndex);}
+  }
+
+  if(dots){
+    for(var p=0;p<photos.length;p++){
+      var dot=document.createElement('button');
+      dot.type='button';
+      dot.className='photo-dot'+(p===0?' active':'');
+      dot.setAttribute('aria-label','Photo '+(p+1));
+      (function(index){dot.onclick=function(){setPhoto(index);};})(p);
+      dots.appendChild(dot);
+    }
+  }
+  var prevPhoto=document.getElementById('prevPhoto');
+  var nextPhoto=document.getElementById('nextPhoto');
+  if(prevPhoto){prevPhoto.onclick=function(){setPhoto(photoIndex-1);};}
+  if(nextPhoto){nextPhoto.onclick=function(){setPhoto(photoIndex+1);};}
+  if(image){image.onclick=function(){setPhoto(photoIndex+1);};}
+
+  var reasonButtons=document.querySelectorAll('.reason-buttons button');
+  for(var r=0;r<reasonButtons.length;r++){
+    reasonButtons[r].onclick=function(){
+      for(var q=0;q<reasonButtons.length;q++){reasonButtons[q].classList.remove('selected');}
+      this.classList.add('selected');
+      document.getElementById('reasonMessage').textContent=this.getAttribute('data-message')||'';
+    };
+  }
+
+  var promise=document.getElementById('promiseButton');
+  if(promise){
+    promise.onclick=function(){
+      var response=document.getElementById('promiseResponse');
+      response.textContent=response.textContent?'Good. Then I will keep proving it.':'Alright. I mean it.';
+    };
+  }
+
+  var restart=document.getElementById('restart');
+  if(restart){
+    restart.onclick=function(){
+      unlocked=false;
+      input.value='';
+      message.textContent='';
+      showSlide(0);
+    };
+  }
+
+  document.addEventListener('keydown',function(event){
+    if(event.target && (event.target.tagName==='INPUT'||event.target.tagName==='TEXTAREA')){return;}
+    if(event.key==='ArrowRight'||event.key===' '){event.preventDefault();go(1);}
+    if(event.key==='ArrowLeft'){event.preventDefault();go(-1);}
+  });
+
+  var touchStart=0;
+  document.addEventListener('touchstart',function(event){touchStart=event.changedTouches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(event){
+    var distance=event.changedTouches[0].clientX-touchStart;
+    if(Math.abs(distance)>55){go(distance<0?1:-1);}
+  },{passive:true});
+
+  showSlide(0);
 }
-function go(delta){showSlide(current+delta)}
-prev.addEventListener('click',()=>go(-1)); next.addEventListener('click',()=>go(1));
-document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>go(1)));
 
-const unlockForm=document.getElementById('unlockForm'), nameInput=document.getElementById('secretName'), msg=document.getElementById('unlockMessage');
-function acceptedName(v){return /^bhondu+$/i.test(v.trim().replace(/\s+/g,''))}
-unlockForm.addEventListener('submit',e=>{
-  e.preventDefault();
-  if(acceptedName(nameInput.value)){
-    unlocked=true; msg.textContent='Good. You know. 😒';
-    document.getElementById('deck').classList.add('unlocked');
-    setTimeout(()=>showSlide(1),500);
-  }else{msg.textContent='Nope. Try again.';nameInput.select()}
-});
-
-let audio=null;
-function getAudio(){if(!audio){audio=new Audio('assets/Those_Eyes_-_New_West_(mp3.pm).mp3');audio.loop=true;audio.volume=.4}return audio}
-async function toggleMusic(){
- const a=getAudio();
- if(a.paused){try{await a.play();document.getElementById('musicBtn').textContent='♫'}catch{}}else{a.pause();document.getElementById('musicBtn').textContent='♪'}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',init);
+}else{
+  init();
 }
-document.getElementById('musicBtn').addEventListener('click',toggleMusic);
-document.getElementById('gateMusic').addEventListener('click',toggleMusic);
-
-document.getElementById('loveReveal').addEventListener('click',e=>{
- const line=document.getElementById('loveLine');line.classList.toggle('show');
- e.currentTarget.textContent=line.classList.contains('show')?'♡ I meant every word':'there\'s one line I really want you to read';
-});
-
-document.querySelectorAll('.date-card').forEach(card=>card.addEventListener('click',()=>{
- document.querySelectorAll('.date-card').forEach(c=>c.classList.remove('selected'));
- card.classList.add('selected');document.getElementById('cardDetail').textContent=card.dataset.detail;
-}));
-
-const photos=[
-['20260913145619135.jpg','one of my favourite pictures of us'],
-['20260913145620022.jpg','you looked so pretty here'],
-['20260913145623476.jpg','just us ♡'],
-['20260913145623805.jpg','one of those moments'],
-['PXL_20260912_064556914.jpg','you ♡'],
-['PXL_20260912_064649801.jpg','this face'],
-['PXL_20260915_085033379.jpg','you, being you'],
-['PXL_20260915_085042633.MP.jpg','a little moment together'],
-['PXL_20260925_072819836.jpg','you in yellow'],
-['PXL_20260925_072822775.jpg','another favourite'],
-['PXL_20260925_072831129.jpg','pretty as always'],
-['PXL_20260925_114406222.jpg','one more memory']
-];
-let photoIndex=0;
-const gi=document.getElementById('galleryImage'),gc=document.getElementById('galleryCaption'),pc=document.getElementById('photoCounter'),dots=document.getElementById('photoDots');
-photos.forEach((p,i)=>{const d=document.createElement('button');d.className='photo-dot'+(i===0?' active':'');d.type='button';d.ariaLabel='Photo '+(i+1);d.addEventListener('click',()=>setPhoto(i));dots.appendChild(d)});
-function setPhoto(i){photoIndex=(i+photos.length)%photos.length;gi.style.opacity='0';setTimeout(()=>{gi.src='assets/'+photos[photoIndex][0];gc.textContent=photos[photoIndex][1];pc.textContent=String(photoIndex+1).padStart(2,'0')+' / 12';document.querySelectorAll('.photo-dot').forEach((d,j)=>d.classList.toggle('active',j===photoIndex));gi.style.opacity='1'},120)}
-document.getElementById('prevPhoto').addEventListener('click',()=>setPhoto(photoIndex-1));
-document.getElementById('nextPhoto').addEventListener('click',()=>setPhoto(photoIndex+1));
-gi.addEventListener('click',()=>setPhoto(photoIndex+1));
-
-document.querySelectorAll('.reason-buttons button').forEach(b=>b.addEventListener('click',()=>{
- document.querySelectorAll('.reason-buttons button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('reasonMessage').textContent=b.dataset.message;
-}));
-
-document.getElementById('promiseButton').addEventListener('click',()=>{
- const r=document.getElementById('promiseResponse');r.textContent=r.textContent?"Good. Then I'll keep proving it.":"Alright. I mean it.";
-});
-
-document.getElementById('restart').addEventListener('click',()=>{unlocked=false;nameInput.value='';msg.textContent='';showSlide(0)});
-
-document.addEventListener('keydown',e=>{
- if(e.target.matches('input,textarea')) return;
- if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1)}
- if(e.key==='ArrowLeft')go(-1);
-});
-let touchX=0;
-document.addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});
-document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>55)go(dx<0?1:-1)},{passive:true});
-showSlide(0);
-});
+})();
