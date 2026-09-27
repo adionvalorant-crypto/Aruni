@@ -56,10 +56,13 @@ function init(){
         unlocked=true;
         message.textContent='Good. You know. 😒';
         var a=getAudio();
-        a.play().then(function(){
+        a.currentTime=0;
+        a.load();
+        var playPromise=a.play();
+        if(playPromise){playPromise.then(function(){
           var mb=document.getElementById('musicBtn');
           if(mb){mb.textContent='♫';}
-        }).catch(function(){});
+        }).catch(function(){});}
         setTimeout(function(){showSlide(1,1);},250);
       }else{
         message.textContent='Nope. Try again.';
@@ -69,13 +72,13 @@ function init(){
     };
   }
 
-  var audio=null;
+  var audio=document.getElementById('siteSong');
   function getAudio(){
     if(!audio){
       audio=new Audio('assets/Those_Eyes_-_New_West_(mp3.pm).mp3');
       audio.loop=true;
-      audio.volume=0.4;
     }
+    audio.volume=0.4;
     return audio;
   }
   function toggleMusic(){
@@ -213,7 +216,7 @@ function init(){
     if(Math.abs(distance)>55){go(distance<0?1:-1);}
   },{passive:true});
 
-  showSlide(0);
+  showSlide(0,0);
 }
 
 if(document.readyState==='loading'){
