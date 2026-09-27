@@ -210,7 +210,6 @@ function init(){
       message.textContent='';
       showSlide(0,0);
     };
-    };
   }
 
   setInterval(updateStats,1000);
