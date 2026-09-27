@@ -1,192 +1,45 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#fff8f4">
-<title>For Aruni ♡</title>
+<meta name="theme-color" content="#f7efe9">
+<title>our little place ♡</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
-<audio id="siteSong" preload="auto" loop src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
-<div class="deck" id="deck">
-  <div class="grain"></div>
-
-  <section class="slide gate-slide active" data-slide="0">
-    <div class="gate-content">
-      <span class="mini">PRIVATE PRESENTATION • FOR ARUNI ONLY</span>
-      <div class="big-heart">♡</div>
-      <h1>Alright.<br><em>you made it.</em></h1>
-      <p class="lead">Enter your name. You know the one.</p>
-      <form class="unlock-form" id="unlockForm">
-        <input id="secretName" type="text" placeholder="your name..." autocomplete="off" maxlength="30">
-        <button id="unlockButton" type="button">unlock →</button>
-      </form>
-      <p class="hint" id="unlockMessage"></p>
-      <button class="song-button" id="gateMusic" type="button">♪ play our song</button>
-    </div>
-  </section>
-
-  <section class="slide hero-slide" data-slide="1">
-    <div class="slide-no">01</div>
-    <div class="hero-layout">
-      <div>
-        <span class="mini">I HAVE SOMETHING TO SAY</span>
-        <h2>I'm sorry,<br><em>my love.</em></h2>
-        <p>Not going to make this unnecessarily dramatic.<br>I just wanted to say this properly.</p>
-        <button class="next-prompt" data-next>alright, next →</button>
-      </div>
-      <figure class="hero-card tilt"><img src="assets/PXL_20260925_072819836.jpg" alt="A memory of us"><span>us ♡</span></figure>
-    </div>
-  </section>
-
-  <section class="slide letter-slide" data-slide="2">
-    <div class="slide-no">02</div>
-    <span class="mini">THE PART I ACTUALLY MEAN</span>
-    <div class="letter-box">
-      <div class="letter-top">Aruni,</div>
-      <p>I know things haven't been easy lately. We fight. Sometimes we misunderstand each other. Sometimes I don't know how to say what's going on in my head, so I go quiet — and I know that silence can hurt you and make you anxious.</p>
-      <p>I'm sorry for every time I've hurt you, intentionally or unintentionally. I don't want to pretend that saying sorry fixes everything. It doesn't.</p>
-      <button class="reveal-button" id="loveReveal" type="button">one thing, though →</button>
-      <p class="hidden-line" id="loveLine">I love you. A lot. ♡</p>
-    </div>
-  </section>
-
-  <section class="slide memory-slide" data-slide="3">
-    <div class="slide-no">03</div>
-    <span class="mini">ONE OF THE FIRST THINGS I REMEMBER</span>
-    <div class="memory-layout">
-      <div class="memory-copy">
-        <span class="date-pill">BHOPAL • MUN</span>
-        <h2>that<br><em>night walk.</em></h2>
-        <p>Before everything else, there was that Bhopal trip for MUN — and that night we went out for a walk near the hotel.</p>
-        <p class="soft">Nothing dramatic. Just that night. I remember it.</p>
-      </div>
-      <div class="memory-photo tilt"><img src="assets/20260913145623476.jpg" alt="A memory together"></div>
-    </div>
-  </section>
-
-  <section class="slide timeline-slide" data-slide="4">
-    <div class="slide-no">04</div>
-    <span class="mini">THE TIMELINE, BECAUSE APPARENTLY WE NEED ONE</span>
-    <h2 class="center-title">the important bits.</h2>
-    <div class="date-cards">
-      <button class="date-card" data-detail="Bhopal, MUN, a night walk near the hotel. A small memory from before everything changed.">
-        <span>BEFORE</span><strong>Bhopal / MUN</strong><small>that night</small>
-      </button>
-      <button class="date-card" data-detail="The day we stopped being just best friends. One day before we officially became us.">
-        <span>19.03.2026</span><strong>more than<br>best friends</strong><small>the beginning</small>
-      </button>
-      <button class="date-card featured" data-detail="The day we officially became boyfriend and girlfriend. 20 March 2026.">
-        <span>20.03.2026</span><strong>officially<br>us ♡</strong><small>the date</small>
-      </button>
-      <button class="date-card" data-detail="Our first date. Tao Bao. One of the first memories that belongs to just us.">
-        <span>FIRST DATE</span><strong>Tao Bao</strong><small>just us</small>
-      </button>
-    </div>
-    <p class="card-detail" id="cardDetail">Choose a date. I'll explain.</p>
-  </section>
-
-  <section class="slide gallery-slide" data-slide="5">
-    <div class="slide-no">05</div>
-    <div class="gallery-head"><span class="mini">THE PHOTO DUMP</span><h2>little pieces of <em>us.</em></h2><p>The photo, dots, and arrows all work.</p><div class="photo-reactions"><button data-reaction="❤️">❤️</button><button data-reaction="😂">😂</button><button data-reaction="😭">😭</button></div><p class="reaction-response" id="reactionResponse"></p></div>
-    <div class="photo-stage">
-      <button class="gallery-arrow prev" id="prevPhoto" type="button">←</button>
-      <figure class="big-polaroid tilt" id="mainPhoto">
-        <img id="galleryImage" src="assets/20260913145619135.jpg" alt="Memory">
-        <figcaption id="galleryCaption">one of my favourite pictures of us</figcaption>
-      </figure>
-      <button class="gallery-arrow next" id="nextPhoto" type="button">→</button>
-    </div>
-    <div class="photo-counter" id="photoCounter">01 / 12</div>
-    <div class="photo-dots" id="photoDots"></div>
-  </section>
-
-  <section class="slide mini-game-slide" data-slide="6">
-    <div class="slide-no">06</div>
-    <span class="mini">A VERY SERIOUS TEST</span>
-    <h2 class="center-title">how well do you remember?</h2>
-    <div class="quiz-box" id="quizBox">
-      <p class="quiz-question" id="quizQuestion">When did we officially become us?</p>
-      <div class="quiz-options" id="quizOptions">
-        <button data-answer="wrong">19.03.2026</button><button data-answer="correct">20.03.2026</button><button data-answer="wrong">Tao Bao day</button>
-      </div>
-      <p class="quiz-result" id="quizResult"></p>
-    </div>
-  </section>
-
-  <section class="slide reasons-slide" data-slide="7">
-    <div class="slide-no">07</div>
-    <span class="mini">THINGS I PROBABLY SHOULD SAY MORE</span>
-    <h2 class="center-title">choose one.</h2>
-    <div class="reason-buttons">
-      <button data-message="I love spending time with you. Even when we're doing absolutely nothing.">01</button>
-      <button data-message="I love your silly side. Probably more than I admit.">02</button>
-      <button data-message="I love the little moments we get together. They mean more to me than they look.">03</button>
-      <button data-message="I love the way our memories feel when I think back on them.">04</button>
-      <button data-message="I love you even on the difficult days.">05</button>
-    </div>
-    <div class="reason-message" id="reasonMessage">Pick a number. I'm waiting.</div>
-  </section>
-
-  <section class="slide promise-slide" data-slide="8">
-    <div class="slide-no">08</div>
-    <span class="mini">THIS IS THE PART WHERE I TRY TO BE SERIOUS</span>
-    <div class="promise-content">
-      <h2>I'll talk.<br>I'll listen.<br><em>I'll try.</em></h2>
-      <p>Not perfectly. Not overnight. But genuinely.</p>
-      <button class="big-button" id="promiseButton" type="button">press it. you'll see.</button>
-      <div class="promise-response" id="promiseResponse"></div>
-    </div>
-  </section>
-
-  <section class="slide fight-slide" data-slide="9">
-    <div class="slide-no">09</div>
-    <span class="mini">THE FIGHT SIMULATOR</span>
-    <h2 class="center-title">pick what usually happens.</h2>
-    <div class="fight-options">
-      <button>I overthink.</button><button>You go quiet.</button><button>Somehow both.</button>
-    </div>
-    <div class="fight-result" id="fightResult">Choose wisely.</div>
-  </section>
-
-  <section class="slide openwhen-slide" data-slide="10">
-    <div class="slide-no">10</div>
-    <span class="mini">OPEN WHEN</span>
-    <h2 class="center-title">pick one. obviously.</h2>
-    <div class="envelopes">
-      <button data-open="angry">when you're angry at me</button>
-      <button data-open="miss">when you miss me</button>
-      <button data-open="bored">when you're bored</button>
-    </div>
-    <div class="openwhen-result" id="openWhenResult"></div>
-  </section>
-
-  <section class="slide black-transition" data-slide="11"><div class="black-line" id="blackLine">wait.</div></section>
-
-  <section class="slide final-slide" data-slide="12">
-    <div class="slide-no">13</div><div class="final-photo"><img src="assets/PXL_20260925_072819836.jpg" alt="Us"></div>
-    <div class="final-copy"><div class="stats" id="interactionStats"></div>
-      <span class="mini">THAT'S IT. ALMOST.</span>
-      <h2>I'm still<br><em>choosing us.</em></h2>
-      <p>I'm sorry for the times I made you feel otherwise.</p>
-      <button class="heart-beat secret-heart" id="secretHeart" type="button" aria-label="heart">♥</button><div class="heart-note" id="heartNote"></div>
-      <strong>20.03.2026 → ∞</strong>
-      <button class="restart" id="restart" type="button">↺ again, if you want</button>
-    </div>
-  </section>
+<div class="grain"></div>
+<div class="room" id="room">
+  <header class="topbar">
+    <button class="brand" id="homeBtn" type="button">our little place <span>♡</span></button>
+    <div class="date">est. 27.09.2026</div>
+    <button class="music" id="musicBtn" type="button">♪</button>
+  </header>
+  <main>
+    <section class="home page active" id="home">
+      <div class="welcome"><span class="eyebrow">PRIVATE SPACE • JUST US</span><h1>hey.<br><em>you're here.</em></h1><p>Welcome back.</p><button class="enter" id="enterBtn" type="button">come in →</button></div>
+      <div class="room-card photo-card" data-open="photos"><img src="assets/PXL_20260925_072819836.jpg" alt="us"><span>the photo wall</span></div>
+      <div class="room-card note-card" data-open="notes"><span class="tiny">DRAWER 01</span><strong>things I wanted to tell you</strong><span>open it</span></div>
+      <div class="room-card lore-card" data-open="lore"><span class="tiny">DRAWER 02</span><strong>our completely unnecessary lore</strong><span>you probably know this stuff</span></div>
+      <div class="room-card future-card" data-open="future"><span class="tiny">DRAWER 03</span><strong>things we haven't done yet</strong><span>yet.</span></div>
+      <div class="home-stamp">27.09.2026<br><small>the day this little place began</small></div>
+    </section>
+    <section class="page drawer-page" id="photos"><button class="back" data-back>← back to our place</button><span class="eyebrow">THE PHOTO WALL</span><h2>little pieces of <em>us.</em></h2><div class="gallery"><button class="gallery-arrow" id="prevPhoto">←</button><figure class="polaroid"><img id="galleryImage" src="assets/20260913145619135.jpg" alt="memory"><figcaption id="galleryCaption">this one just felt right</figcaption></figure><button class="gallery-arrow" id="nextPhoto">→</button></div><div class="photo-dots" id="photoDots"></div><p class="soft">Some things don't need a caption.</p></section>
+    <section class="page drawer-page" id="notes"><button class="back" data-back>← back to our place</button><span class="eyebrow">DRAWER 01</span><h2>things I wanted<br><em>to tell you.</em></h2><div class="note-grid"><button class="paper-note" data-note="I still like spending time with you even when we're doing absolutely nothing.">01</button><button class="paper-note" data-note="Sometimes I see something and my first thought is that I need to tell you.">02</button><button class="paper-note" data-note="You are unfortunately still my favourite person.">03</button><button class="paper-note" data-note="I know we won't get everything right. I still want all the ordinary days with you.">04</button><button class="paper-note" data-note="You make normal days feel like they belong to us.">05</button><button class="paper-note" data-note="For the record: I love you. No elaborate website required this time.">06</button></div><div class="note-reveal" id="noteReveal">pick one.</div></section>
+    <section class="page drawer-page dark-page" id="lore"><button class="back" data-back>← back to our place</button><span class="eyebrow">DRAWER 02</span><h2>our completely<br><em>unnecessary lore.</em></h2><div class="lore-list"><button data-lore="bhopal">Bhopal / MUN</button><button data-lore="taobao">Tao Bao</button><button data-lore="1903">19.03.2026</button><button data-lore="2003">20.03.2026</button></div><div class="lore-reveal" id="loreReveal">choose a piece of lore.</div></section>
+    <section class="page drawer-page" id="future"><button class="back" data-back>← back to our place</button><span class="eyebrow">DRAWER 03</span><h2>things we haven't<br><em>done yet.</em></h2><div class="future-list"><button data-future="date">another proper date</button><button data-future="trip">a place we've never been</button><button data-future="food">a meal we haven't tried</button><button data-future="random">something completely stupid</button></div><div class="future-reveal" id="futureReveal">pick one. we'll get there.</div></section>
+    <section class="page drawer-page" id="openwhen"><button class="back" data-back>← back to our place</button><span class="eyebrow">THE LITTLE DRAWER</span><h2>open when<br><em>you need me.</em></h2><div class="envelopes"><button data-openwhen="angry">you're angry at me</button><button data-openwhen="miss">you miss me</button><button data-openwhen="bad">today was bad</button><button data-openwhen="sleep">you can't sleep</button><button data-openwhen="laugh">you need to laugh</button><button data-openwhen="love">you just want me</button></div><div class="open-reveal" id="openReveal"></div></section>
+    <section class="page drawer-page random-page" id="random"><button class="back" data-back>← back to our place</button><span class="eyebrow">RANDOM US</span><h2>give me<br><em>something random.</em></h2><button class="random-button" id="randomBtn" type="button">surprise me</button><div class="random-reveal" id="randomReveal">you never know what you'll get.</div></section>
+    <section class="page drawer-page add-page" id="add"><button class="back" data-back>← back to our place</button><span class="eyebrow">A LITTLE SPACE FOR LATER</span><h2>leave something<br><em>for us.</em></h2><p class="soft">This stays on this browser. Add a tiny memory, thought, or inside joke.</p><textarea id="memoryInput" maxlength="180" placeholder="something only we need to remember..."></textarea><button class="save-memory" id="saveMemory" type="button">put it in the drawer →</button><div class="saved-memory" id="savedMemory"></div></section>
+    <section class="page ending-page" id="ending"><span class="eyebrow">ONE LAST THING</span><h2>this isn't<br><em>the end.</em></h2><p>There will be more photos.<br>More stupid stories.<br>More dates.<br>More us.</p><div class="forever">27.09.2026 → ∞</div><button class="enter" data-back type="button">go home ♡</button></section>
+  </main>
+  <nav class="bottom-nav"><button data-open="notes">notes</button><button data-open="photos">photos</button><button data-open="random">random</button><button data-open="openwhen">open when</button><button data-open="add">add something</button></nav>
 </div>
-
-<nav class="deck-controls" id="controls" aria-label="Presentation controls">
-  <button id="prevSlide" type="button" aria-label="Previous slide">←</button>
-  <div class="progress" id="progress"></div>
-  <button id="nextSlide" type="button" aria-label="Next slide">→</button>
-  <button class="music-btn" id="musicBtn" type="button">♪</button>
-</nav>
-<div class="slide-counter" id="slideCounter">01 / 13</div>
-<script src="script.js?v=12"></script>
+<audio id="song" loop preload="auto" src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
+<div class="toast" id="toast"></div>
+<script src="script.js?v=2"></script>
 </body>
 </html>
