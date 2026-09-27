@@ -46,8 +46,9 @@ const musicBtn=document.getElementById('musicBtn');
 let audio;
 musicBtn.addEventListener('click',()=>{
   if(!audio){
-    audio=new Audio('assets/song.mp3');
+    audio=new Audio('assets/Those_Eyes_-_New_West_(mp3.pm).mp3');
     audio.loop=true;
+    audio.volume=0.4;
   }
   if(audio.paused){
     audio.play().then(()=>musicBtn.innerHTML='♫ <span>playing</span>').catch(()=>musicBtn.innerHTML='♪ <span>add song</span>');
