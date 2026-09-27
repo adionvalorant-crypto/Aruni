@@ -44,6 +44,7 @@ function init(){
   }
 
   var form=document.getElementById('unlockForm');
+  var unlockButton=document.getElementById('unlockButton');
   var input=document.getElementById('secretName');
   var message=document.getElementById('unlockMessage');
 
@@ -51,27 +52,25 @@ function init(){
     return /^bhondu+$/i.test(String(value).replace(/\s/g,''));
   }
 
-  if(form){
-    form.onsubmit=function(event){
-      event.preventDefault();
-      if(accepted(input.value)){
-        unlocked=true;
-        message.textContent='Good. You know. 😒';
-        var a=getAudio();
-        a.currentTime=0;
-        var playPromise=a.play();
-        if(playPromise){playPromise.then(function(){
-          var mb=document.getElementById('musicBtn');
-          if(mb){mb.textContent='♫';}
-        }).catch(function(){});}
-        setTimeout(function(){showSlide(1,1);},250);
-      }else{
-        message.textContent='Nope. Try again.';
-        input.select();
-      }
-      return false;
-    };
+  function unlock(){
+    if(accepted(input.value)){
+      unlocked=true;
+      message.textContent='Good. You know. 😒';
+      var a=getAudio();
+      a.currentTime=0;
+      var playPromise=a.play();
+      if(playPromise){playPromise.then(function(){
+        var mb=document.getElementById('musicBtn');
+        if(mb){mb.textContent='♫';}
+      }).catch(function(){});}
+      setTimeout(function(){showSlide(1,1);},250);
+    }else{
+      message.textContent='Nope. Try again.';
+      input.select();
+    }
   }
+  if(unlockButton){unlockButton.onclick=unlock;}
+  if(input){input.addEventListener('keydown',function(event){if(event.key==='Enter'){event.preventDefault();unlock();}});}
 
   var audio=document.getElementById('siteSong');
   function getAudio(){
