@@ -5,6 +5,7 @@ function init(){
   var slides=document.querySelectorAll('.slide');
   var current=0;
   var unlocked=false;
+  var interactions=0, discoveries=0, wrongAnswers=0, startedAt=Date.now();
 
   var counter=document.getElementById('slideCounter');
   var progress=document.getElementById('progress');
@@ -31,7 +32,7 @@ function init(){
     if(next){next.disabled=current===slides.length-1;}
   }
 
-  function go(delta){showSlide(current+delta,delta);}
+  function go(delta){interactions++; showSlide(current+delta,delta);}
 
   if(prev){prev.onclick=function(){go(-1);};}
   if(next){next.onclick=function(){go(1);};}
@@ -57,7 +58,6 @@ function init(){
         message.textContent='Good. You know. 😒';
         var a=getAudio();
         a.currentTime=0;
-        a.load();
         var playPromise=a.play();
         if(playPromise){playPromise.then(function(){
           var mb=document.getElementById('musicBtn');
@@ -161,7 +161,25 @@ function init(){
   var nextPhoto=document.getElementById('nextPhoto');
   if(prevPhoto){prevPhoto.onclick=function(){setPhoto(photoIndex-1);};}
   if(nextPhoto){nextPhoto.onclick=function(){setPhoto(photoIndex+1);};}
-  if(image){image.onclick=function(){setPhoto(photoIndex+1);};}
+  if(image){image.onclick=function(){interactions++; setPhoto(photoIndex+1);};}
+
+  var reactionButtons=document.querySelectorAll('.photo-reactions button');
+  for(var rb=0;rb<reactionButtons.length;rb++){reactionButtons[rb].onclick=function(){interactions++; document.getElementById('reactionResponse').textContent=this.getAttribute('data-reaction')+' — fair.';};}
+
+  var quizOptions=document.querySelectorAll('.quiz-options button');
+  for(var qo=0;qo<quizOptions.length;qo++){quizOptions[qo].onclick=function(){interactions++; if(this.getAttribute('data-answer')==='correct'){discoveries++; document.getElementById('quizResult').textContent='Correct. Good that you know 😒';}else{wrongAnswers++; document.getElementById('quizResult').textContent='Nope. You had one job.';}};}
+
+  var fightOptions=document.querySelectorAll('.fight-options button');
+  for(var fo=0;fo<fightOptions.length;fo++){fightOptions[fo].onclick=function(){interactions++; document.getElementById('fightResult').textContent='Correct answer: C. Somehow both. We are working on it.';};}
+
+  var openButtons=document.querySelectorAll('[data-open]');
+  var openTexts={angry:'You can be angry. I can take it. I just don’t want us to stop talking.',miss:'I probably miss you too. Unfortunately, this website cannot teleport me.',bored:'Congratulations. You found the part of the internet specifically made to waste your time.'};
+  for(var ob=0;ob<openButtons.length;ob++){openButtons[ob].onclick=function(){interactions++; document.getElementById('openWhenResult').textContent=openTexts[this.getAttribute('data-open')];};}
+
+  var dateClicks=0, dateTimer=null;
+  for(var dc=0;dc<dateCards.length;dc++){dateCards[dc].addEventListener('click',function(){interactions++; if(this.getAttribute('data-detail').indexOf('day we stopped')>-1){dateClicks++; clearTimeout(dateTimer); dateTimer=setTimeout(function(){dateClicks=0;},1200); if(dateClicks>=3){discoveries++; var detail=document.getElementById('cardDetail'); if(detail) detail.textContent='You found the extra memory. Bhopal was before all of this — and I still remember that night clearly.';}}});}
+
+  document.addEventListener('keydown',function(e){if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return; if(e.key.toLowerCase()==='b'){window._secretKeys='b';} else if(window._secretKeys && 'hondu'.indexOf(e.key.toLowerCase())===('hondu'.indexOf(window._secretKeys.slice(1))+1)){window._secretKeys+=e.key.toLowerCase();} else {window._secretKeys='';} if(window._secretKeys==='bhondu'){discoveries++; document.body.classList.add('secret-mode'); setTimeout(function(){document.body.classList.remove('secret-mode');},2200);}});
 
   var reasonButtons=document.querySelectorAll('.reason-buttons button');
   for(var r=0;r<reasonButtons.length;r++){
@@ -180,6 +198,9 @@ function init(){
     };
   }
 
+  function updateStats(){var el=document.getElementById('interactionStats'); if(el){var secs=Math.max(1,Math.round((Date.now()-startedAt)/1000)); el.textContent='You clicked: '+interactions+' · You found: '+discoveries+' · You got wrong: '+wrongAnswers+' · You stayed: '+secs+'s';}}
+  var finalSlide=document.querySelector('.final-slide'); if(finalSlide){new MutationObserver(updateStats).observe(finalSlide,{attributes:true});}
+
   var restart=document.getElementById('restart');
   if(restart){
     restart.onclick=function(){
@@ -187,6 +208,7 @@ function init(){
       input.value='';
       message.textContent='';
       showSlide(0,0);
+  setInterval(updateStats,1000);
     };
   }
 
