@@ -73,7 +73,7 @@ document.querySelectorAll('.reason-buttons button').forEach(b=>b.addEventListene
 }));
 
 document.getElementById('promiseButton').addEventListener('click',()=>{
- const r=document.getElementById('promiseResponse');r.textContent=r.textContent?'Good. Then I'll keep proving it.':'Alright. I mean it.';
+ const r=document.getElementById('promiseResponse');r.textContent=r.textContent?"Good. Then I'll keep proving it.":"Alright. I mean it.";
 });
 
 document.getElementById('restart').addEventListener('click',()=>{unlocked=false;nameInput.value='';msg.textContent='';showSlide(0)});
