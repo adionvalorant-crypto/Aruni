@@ -18,10 +18,13 @@ function toastMsg(msg){
  toast.textContent=msg;toast.classList.add('show');clearTimeout(toast._t);
  toast._t=setTimeout(function(){toast.classList.remove('show');},3500);
 }
-document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){show(this.getAttribute('data-open'));});});
-document.querySelectorAll('[data-back]').forEach(function(b){b.addEventListener('click',function(){show('home');});});
-document.getElementById('homeBtn').onclick=function(){show('home');};
-document.getElementById('enterBtn').onclick=function(){show('notes');toastMsg('welcome back. ♡');};
+document.addEventListener('click',function(e){
+ var target=e.target.closest('[data-open],[data-back],#homeBtn,#enterBtn');
+ if(!target)return;
+ if(target.hasAttribute('data-open')){show(target.getAttribute('data-open'));return;}
+ if(target.hasAttribute('data-back')||target.id==='homeBtn'){show('home');return;}
+ if(target.id==='enterBtn'){show('notes');toastMsg('welcome back. ♡');return;}
+});
 show('home');
 
 var image=document.getElementById('galleryImage'),caption=document.getElementById('galleryCaption'),dots=document.getElementById('photoDots'),pi=0;
