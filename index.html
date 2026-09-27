@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <div class="deck" id="deck">
@@ -18,13 +18,13 @@
     <div class="gate-content">
       <span class="mini">PRIVATE PRESENTATION • FOR ARUNI ONLY</span>
       <div class="big-heart">♡</div>
-      <h1>Okay, Bhondu.<br><em>come in.</em></h1>
-      <p class="lead">But first, prove you're the right Bhondu.</p>
+      <h1>Alright.<br><em>you made it.</em></h1>
+      <p class="lead">Enter your name. You know the one.</p>
       <form id="unlockForm">
-        <input id="secretName" type="text" placeholder="your secret name..." autocomplete="off" maxlength="30" required>
+        <input id="secretName" type="text" placeholder="your name..." autocomplete="off" maxlength="30" required>
         <button type="submit">unlock →</button>
       </form>
-      <p class="hint" id="unlockMessage">you know this one.</p>
+      <p class="hint" id="unlockMessage"></p>
       <button class="song-button" id="gateMusic" type="button">♪ play our song</button>
     </div>
   </section>
@@ -33,10 +33,10 @@
     <div class="slide-no">01</div>
     <div class="hero-layout">
       <div>
-        <span class="mini">A LITTLE PRESENTATION FOR YOU</span>
+        <span class="mini">I HAVE SOMETHING TO SAY</span>
         <h2>I'm sorry,<br><em>my love.</em></h2>
-        <p>Not because I have the perfect words.<br>Just because I want you to know I mean it.</p>
-        <button class="next-prompt" data-next>tap to begin →</button>
+        <p>Not going to make this unnecessarily dramatic.<br>I just wanted to say this properly.</p>
+        <button class="next-prompt" data-next>alright, next →</button>
       </div>
       <figure class="hero-card tilt"><img src="assets/PXL_20260925_072819836.jpg" alt="A memory of us"><span>us ♡</span></figure>
     </div>
@@ -44,25 +44,25 @@
 
   <section class="slide letter-slide" data-slide="2">
     <div class="slide-no">02</div>
-    <span class="mini">THE PART I DON'T WANT TO GET WRONG</span>
+    <span class="mini">THE PART I ACTUALLY MEAN</span>
     <div class="letter-box">
       <div class="letter-top">Aruni,</div>
       <p>I know things haven't been easy lately. We fight. Sometimes we misunderstand each other. Sometimes I don't know how to say what's going on in my head, so I go quiet — and I know that silence can hurt you and make you anxious.</p>
       <p>I'm sorry for every time I've hurt you, intentionally or unintentionally. I don't want to pretend that saying sorry fixes everything. It doesn't.</p>
-      <button class="reveal-button" id="loveReveal" type="button">there's one line I really want you to read</button>
+      <button class="reveal-button" id="loveReveal" type="button">one thing, though →</button>
       <p class="hidden-line" id="loveLine">I love you. A lot. ♡</p>
     </div>
   </section>
 
   <section class="slide memory-slide" data-slide="3">
     <div class="slide-no">03</div>
-    <span class="mini">BEFORE WE WERE OFFICIALLY US</span>
+    <span class="mini">ONE OF THE FIRST THINGS I REMEMBER</span>
     <div class="memory-layout">
       <div class="memory-copy">
         <span class="date-pill">BHOPAL • MUN</span>
         <h2>that<br><em>night walk.</em></h2>
         <p>Before everything else, there was that Bhopal trip for MUN — and that night we went out for a walk near the hotel.</p>
-        <p class="soft">It wasn't some huge movie moment. It was just a small moment that stayed with me.</p>
+        <p class="soft">Nothing dramatic. Just that night. I remember it.</p>
       </div>
       <div class="memory-photo tilt"><img src="assets/20260913145623476.jpg" alt="A memory together"></div>
     </div>
@@ -70,8 +70,8 @@
 
   <section class="slide timeline-slide" data-slide="4">
     <div class="slide-no">04</div>
-    <span class="mini">AND THEN...</span>
-    <h2 class="center-title">some dates I don't want to forget.</h2>
+    <span class="mini">THE TIMELINE, BECAUSE APPARENTLY WE NEED ONE</span>
+    <h2 class="center-title">the important bits.</h2>
     <div class="date-cards">
       <button class="date-card" data-detail="Bhopal, MUN, a night walk near the hotel. A small memory from before everything changed.">
         <span>BEFORE</span><strong>Bhopal / MUN</strong><small>that night</small>
@@ -86,12 +86,12 @@
         <span>FIRST DATE</span><strong>Tao Bao</strong><small>just us</small>
       </button>
     </div>
-    <p class="card-detail" id="cardDetail">tap a date.</p>
+    <p class="card-detail" id="cardDetail">Pick one. I'll explain.</p>
   </section>
 
   <section class="slide gallery-slide" data-slide="5">
     <div class="slide-no">05</div>
-    <div class="gallery-head"><span class="mini">THE PHOTO DUMP</span><h2>little pieces of <em>us.</em></h2><p>Tap the photos. Use the arrows. Yes, you have to interact.</p></div>
+    <div class="gallery-head"><span class="mini">THE PHOTO DUMP</span><h2>little pieces of <em>us.</em></h2><p>Tap a photo or use the arrows. That's your job.</p></div>
     <div class="photo-stage">
       <button class="gallery-arrow prev" id="prevPhoto" type="button">←</button>
       <figure class="big-polaroid tilt" id="mainPhoto">
@@ -106,8 +106,8 @@
 
   <section class="slide reasons-slide" data-slide="6">
     <div class="slide-no">06</div>
-    <span class="mini">THINGS I DON'T SAY ENOUGH</span>
-    <h2 class="center-title">pick one.</h2>
+    <span class="mini">THINGS I PROBABLY SHOULD SAY MORE</span>
+    <h2 class="center-title">choose one.</h2>
     <div class="reason-buttons">
       <button data-message="I love spending time with you. Even when we're doing absolutely nothing.">01</button>
       <button data-message="I love your silly side. Probably more than I admit.">02</button>
@@ -115,16 +115,16 @@
       <button data-message="I love the way our memories feel when I think back on them.">04</button>
       <button data-message="I love you even on the difficult days.">05</button>
     </div>
-    <div class="reason-message" id="reasonMessage">choose a number ↑</div>
+    <div class="reason-message" id="reasonMessage">Pick one. I'm waiting.</div>
   </section>
 
   <section class="slide promise-slide" data-slide="7">
     <div class="slide-no">07</div>
-    <span class="mini">THIS ONE IS A PROMISE, NOT A SPEECH</span>
+    <span class="mini">THIS IS THE PART WHERE I TRY TO BE SERIOUS</span>
     <div class="promise-content">
       <h2>I'll talk.<br>I'll listen.<br><em>I'll try.</em></h2>
       <p>Not perfectly. Not overnight. But genuinely.</p>
-      <button class="big-button" id="promiseButton" type="button">do you believe me?</button>
+      <button class="big-button" id="promiseButton" type="button">press it. you'll see.</button>
       <div class="promise-response" id="promiseResponse"></div>
     </div>
   </section>
@@ -132,12 +132,12 @@
   <section class="slide final-slide" data-slide="8">
     <div class="final-photo"><img src="assets/PXL_20260925_072819836.jpg" alt="Us"></div>
     <div class="final-copy">
-      <span class="mini">ONE LAST THING</span>
+      <span class="mini">THAT'S IT. ALMOST.</span>
       <h2>I'm still<br><em>choosing us.</em></h2>
       <p>I'm sorry for the times I made you feel otherwise.</p>
       <div class="heart-beat">♥</div>
       <strong>20.03.2026 → ∞</strong>
-      <button class="restart" id="restart" type="button">↺ start again</button>
+      <button class="restart" id="restart" type="button">↺ again, if you want</button>
     </div>
   </section>
 </div>
@@ -149,6 +149,6 @@
   <button class="music-btn" id="musicBtn" type="button">♪</button>
 </nav>
 <div class="slide-counter" id="slideCounter">01 / 09</div>
-<script src="script.js"></script>
+<script src="script.js?v=4"></script>
 </body>
 </html>
