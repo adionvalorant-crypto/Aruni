@@ -18,6 +18,7 @@ function init(){
     if(n<0){n=0;}
     if(n>=slides.length){n=slides.length-1;}
     current=n;
+    if(current===11){var bl=document.getElementById('blackLine'); if(bl){bl.textContent='wait.'; setTimeout(function(){if(current===11) bl.textContent='I actually love you a stupid amount.';},900);}}
     for(var i=0;i<slides.length;i++){
       slides[i].classList.remove('active','from-left','from-right');
       if(i===current){
@@ -179,7 +180,8 @@ function init(){
   var dateClicks=0, dateTimer=null;
   for(var dc=0;dc<dateCards.length;dc++){dateCards[dc].addEventListener('click',function(){interactions++; if(this.getAttribute('data-detail').indexOf('day we stopped')>-1){dateClicks++; clearTimeout(dateTimer); dateTimer=setTimeout(function(){dateClicks=0;},1200); if(dateClicks>=3){discoveries++; var detail=document.getElementById('cardDetail'); if(detail) detail.textContent='You found the extra memory. Bhopal was before all of this — and I still remember that night clearly.';}}});}
 
-  document.addEventListener('keydown',function(e){if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return; if(e.key.toLowerCase()==='b'){window._secretKeys='b';} else if(window._secretKeys && 'hondu'.indexOf(e.key.toLowerCase())===('hondu'.indexOf(window._secretKeys.slice(1))+1)){window._secretKeys+=e.key.toLowerCase();} else {window._secretKeys='';} if(window._secretKeys==='bhondu'){discoveries++; document.body.classList.add('secret-mode'); setTimeout(function(){document.body.classList.remove('secret-mode');},2200);}});
+  var secretKeys='';
+  document.addEventListener('keydown',function(e){if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return; var key=e.key.toLowerCase(); secretKeys=(secretKeys+key).slice(-6); if(secretKeys==='bhondu'){discoveries++; interactions++; document.body.classList.add('secret-mode'); setTimeout(function(){document.body.classList.remove('secret-mode');},2200); secretKeys='';}});
 
   var reasonButtons=document.querySelectorAll('.reason-buttons button');
   for(var r=0;r<reasonButtons.length;r++){
@@ -208,9 +210,11 @@ function init(){
       input.value='';
       message.textContent='';
       showSlide(0,0);
-  setInterval(updateStats,1000);
+    };
     };
   }
+
+  setInterval(updateStats,1000);
 
   document.addEventListener('keydown',function(event){
     if(event.target && (event.target.tagName==='INPUT'||event.target.tagName==='TEXTAREA')){return;}
