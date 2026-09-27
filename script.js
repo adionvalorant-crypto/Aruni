@@ -11,13 +11,19 @@ function init(){
   var prev=document.getElementById('prevSlide');
   var next=document.getElementById('nextSlide');
 
-  function showSlide(n){
+  function showSlide(n, direction){
     if(!unlocked && n>0){return;}
+    direction=direction||0;
     if(n<0){n=0;}
     if(n>=slides.length){n=slides.length-1;}
     current=n;
     for(var i=0;i<slides.length;i++){
-      slides[i].classList.toggle('active',i===current);
+      slides[i].classList.remove('active','from-left','from-right');
+      if(i===current){
+        slides[i].classList.add('active');
+        if(direction<0){slides[i].classList.add('from-left');}
+        if(direction>0){slides[i].classList.add('from-right');}
+      }
     }
     if(counter){counter.textContent=('0'+(current+1)).slice(-2)+' / '+('0'+slides.length).slice(-2);}
     if(progress){progress.style.setProperty('--progress',((current+1)/slides.length*100)+'%');}
@@ -25,7 +31,7 @@ function init(){
     if(next){next.disabled=current===slides.length-1;}
   }
 
-  function go(delta){showSlide(current+delta);}
+  function go(delta){showSlide(current+delta,delta);}
 
   if(prev){prev.onclick=function(){go(-1);};}
   if(next){next.onclick=function(){go(1);};}
@@ -49,7 +55,12 @@ function init(){
       if(accepted(input.value)){
         unlocked=true;
         message.textContent='Good. You know. 😒';
-        setTimeout(function(){showSlide(1);},250);
+        var a=getAudio();
+        a.play().then(function(){
+          var mb=document.getElementById('musicBtn');
+          if(mb){mb.textContent='♫';}
+        }).catch(function(){});
+        setTimeout(function(){showSlide(1,1);},250);
       }else{
         message.textContent='Nope. Try again.';
         input.select();
@@ -105,7 +116,7 @@ function init(){
   }
 
   var photos=[
-    ['20260913145619135.jpg','one of my favourite pictures of us'],
+    ['20260913145619135.jpg','this one just felt right'],
     ['20260913145620022.jpg','you looked pretty here'],
     ['20260913145623476.jpg','just us'],
     ['20260913145623805.jpg','one of those moments'],
@@ -113,7 +124,7 @@ function init(){
     ['PXL_20260912_064649801.jpg','this face'],
     ['PXL_20260915_085033379.jpg','you, being you'],
     ['PXL_20260915_085042633.MP.jpg','a little moment together'],
-    ['PXL_20260925_072819836.jpg','you in yellow'],
+    ['PXL_20260925_072819836.jpg','dumb as always'],
     ['PXL_20260925_072822775.jpg','another favourite'],
     ['PXL_20260925_072831129.jpg','pretty as always'],
     ['PXL_20260925_114406222.jpg','one more memory']
@@ -172,7 +183,7 @@ function init(){
       unlocked=false;
       input.value='';
       message.textContent='';
-      showSlide(0);
+      showSlide(0,0);
     };
   }
 
@@ -183,6 +194,19 @@ function init(){
   });
 
   var touchStart=0;
+
+  /* little heart burst wherever she taps */
+  document.addEventListener('click',function(event){
+    var heart=document.createElement('span');
+    heart.className='tap-heart';
+    heart.textContent=['♥','♡','♥'][Math.floor(Math.random()*3)];
+    heart.style.left=event.clientX+'px';
+    heart.style.top=event.clientY+'px';
+    heart.style.setProperty('--drift',(Math.random()*50-25)+'px');
+    document.body.appendChild(heart);
+    setTimeout(function(){heart.remove();},900);
+  });
+
   document.addEventListener('touchstart',function(event){touchStart=event.changedTouches[0].clientX;},{passive:true});
   document.addEventListener('touchend',function(event){
     var distance=event.changedTouches[0].clientX-touchStart;
