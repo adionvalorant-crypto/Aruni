@@ -8,9 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
+<audio id="siteSong" preload="auto" loop src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
 <div class="deck" id="deck">
   <div class="grain"></div>
 
@@ -86,12 +87,12 @@
         <span>FIRST DATE</span><strong>Tao Bao</strong><small>just us</small>
       </button>
     </div>
-    <p class="card-detail" id="cardDetail">Tap a date. I'll explain.</p>
+    <p class="card-detail" id="cardDetail">Choose a date. I'll explain.</p>
   </section>
 
   <section class="slide gallery-slide" data-slide="5">
     <div class="slide-no">05</div>
-    <div class="gallery-head"><span class="mini">THE PHOTO DUMP</span><h2>little pieces of <em>us.</em></h2><p>Tap the photo, dots, or arrows. They all work.</p></div>
+    <div class="gallery-head"><span class="mini">THE PHOTO DUMP</span><h2>little pieces of <em>us.</em></h2><p>The photo, dots, and arrows all work.</p></div>
     <div class="photo-stage">
       <button class="gallery-arrow prev" id="prevPhoto" type="button">←</button>
       <figure class="big-polaroid tilt" id="mainPhoto">
@@ -115,7 +116,7 @@
       <button data-message="I love the way our memories feel when I think back on them.">04</button>
       <button data-message="I love you even on the difficult days.">05</button>
     </div>
-    <div class="reason-message" id="reasonMessage">Tap a number. I'm waiting.</div>
+    <div class="reason-message" id="reasonMessage">Pick a number. I'm waiting.</div>
   </section>
 
   <section class="slide promise-slide" data-slide="7">
@@ -149,6 +150,6 @@
   <button class="music-btn" id="musicBtn" type="button">♪</button>
 </nav>
 <div class="slide-counter" id="slideCounter">01 / 09</div>
-<script src="script.js?v=8"></script>
+<script src="script.js?v=9"></script>
 </body>
 </html>
