@@ -1,155 +1,88 @@
-const hearts=document.querySelector('.floating-hearts');
+const slides=[...document.querySelectorAll('.slide')];
+let current=0, unlocked=false;
+const counter=document.getElementById('slideCounter'), progress=document.getElementById('progress');
+const prev=document.getElementById('prevSlide'), next=document.getElementById('nextSlide');
 
-function makeHeart(x=Math.random()*100,y=105){
-  const h=document.createElement('span');
-  h.className='float-heart';
-  h.style.left=x+'%';
-  h.style.top=y+'%';
-  h.style.animationDuration=(5+Math.random()*3)+'s';
-  hearts.appendChild(h);
-  setTimeout(()=>h.remove(),8500);
+function showSlide(n){
+  if(!unlocked && n>0) return;
+  current=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  counter.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+  progress.style.setProperty('--progress',((current+1)/slides.length*100)+'%');
+  prev.disabled=current===0; next.disabled=current===slides.length-1;
 }
+function go(delta){showSlide(current+delta)}
+prev.addEventListener('click',()=>go(-1)); next.addEventListener('click',()=>go(1));
+document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>go(1)));
 
-let heartTimer=setInterval(()=>makeHeart(),1300);
-
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('visible');
-  });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-/* Music */
-const musicBtn=document.getElementById('musicBtn');
-const gateMusic=document.getElementById('gateMusic');
-let audio=null;
-
-function getAudio(){
-  if(!audio){
-    audio=new Audio('assets/Those_Eyes_-_New_West_(mp3.pm).mp3');
-    audio.loop=true;
-    audio.volume=0.4;
-  }
-  return audio;
-}
-
-async function toggleMusic(sourceButton){
-  const a=getAudio();
-  if(a.paused){
-    try{
-      await a.play();
-      if(musicBtn) musicBtn.innerHTML='♫ <span>playing</span>';
-      if(gateMusic) gateMusic.textContent='♫ our song is playing';
-    }catch{
-      if(sourceButton) sourceButton.textContent='tap again to play';
-    }
-  }else{
-    a.pause();
-    if(musicBtn) musicBtn.innerHTML='♪ <span>music</span>';
-    if(gateMusic) gateMusic.textContent='♪ play our song';
-  }
-}
-
-musicBtn?.addEventListener('click',()=>toggleMusic(musicBtn));
-gateMusic?.addEventListener('click',()=>toggleMusic(gateMusic));
-
-/* Welcome password — intentionally forgiving about case and extra u's */
-const gate=document.getElementById('welcomeGate');
-const unlockForm=document.getElementById('unlockForm');
-const secretName=document.getElementById('secretName');
-const unlockMessage=document.getElementById('unlockMessage');
-
-function acceptedName(value){
-  const cleaned=value.trim().replace(/\s+/g,'');
-  return /^bhondu+$/i.test(cleaned);
-}
-
-unlockForm?.addEventListener('submit',e=>{
+const unlockForm=document.getElementById('unlockForm'), nameInput=document.getElementById('secretName'), msg=document.getElementById('unlockMessage');
+function acceptedName(v){return /^bhondu+$/i.test(v.trim().replace(/\s+/g,''))}
+unlockForm.addEventListener('submit',e=>{
   e.preventDefault();
-  if(acceptedName(secretName.value)){
-    unlockMessage.textContent='I knew you would know. ♡';
-    gate.classList.add('is-hidden');
-    document.body.classList.remove('locked');
-    setTimeout(()=>document.querySelector('.hero-copy')?.classList.add('visible'),250);
-    setTimeout(()=>secretName.blur(),50);
-    for(let i=0;i<10;i++) setTimeout(()=>makeHeart(35+Math.random()*30,85),i*90);
-  }else{
-    unlockMessage.textContent='Hmm... you know what I call you. Try again ♡';
-    secretName.select();
-  }
+  if(acceptedName(nameInput.value)){
+    unlocked=true; msg.textContent='I knew you would. ♡';
+    document.getElementById('deck').classList.add('unlocked');
+    setTimeout(()=>showSlide(1),500);
+  }else{msg.textContent='You know what I call you. Try again ♡';nameInput.select()}
 });
 
-/* Clickable reasons */
-document.querySelectorAll('.reason-card').forEach(card=>{
-  card.addEventListener('click',()=>{
-    document.querySelectorAll('.reason-card').forEach(c=>c.classList.remove('active'));
-    card.classList.add('active');
-    for(let i=0;i<4;i++) setTimeout(()=>makeHeart(40+Math.random()*20,65),i*100);
-  });
+let audio=null;
+function getAudio(){if(!audio){audio=new Audio('assets/Those_Eyes_-_New_West_(mp3.pm).mp3');audio.loop=true;audio.volume=.4}return audio}
+async function toggleMusic(){
+ const a=getAudio();
+ if(a.paused){try{await a.play();document.getElementById('musicBtn').textContent='♫'}catch{}}else{a.pause();document.getElementById('musicBtn').textContent='♪'}
+}
+document.getElementById('musicBtn').addEventListener('click',toggleMusic);
+document.getElementById('gateMusic').addEventListener('click',toggleMusic);
+
+document.getElementById('loveReveal').addEventListener('click',e=>{
+ const line=document.getElementById('loveLine');line.classList.toggle('show');
+ e.currentTarget.textContent=line.classList.contains('show')?'♡ I meant every word':'there\'s one line I really want you to read';
 });
 
-/* Photo lightbox */
-const lightbox=document.getElementById('photoLightbox');
-const lightboxImage=document.getElementById('lightboxImage');
-const lightboxCaption=document.getElementById('lightboxCaption');
-const closeLightbox=()=>{
-  if(!lightbox) return;
-  lightbox.hidden=true;
-  lightboxImage.removeAttribute('src');
-};
-document.querySelectorAll('.polaroid').forEach(card=>{
-  card.setAttribute('tabindex','0');
-  const open=()=>{
-    const img=card.querySelector('img');
-    const caption=card.querySelector('figcaption');
-    if(!img||!lightbox) return;
-    lightboxImage.src=img.currentSrc||img.src;
-    lightboxImage.alt=img.alt||'Memory';
-    lightboxCaption.textContent=caption?.textContent||'';
-    lightbox.hidden=false;
-  };
-  card.addEventListener('click',open);
-  card.addEventListener('keydown',e=>{
-    if(e.key==='Enter'||e.key===' ') { e.preventDefault(); open(); }
-  });
-});
-document.getElementById('lightboxClose')?.addEventListener('click',closeLightbox);
-lightbox?.addEventListener('click',e=>{if(e.target===lightbox) closeLightbox();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLightbox();});
+document.querySelectorAll('.date-card').forEach(card=>card.addEventListener('click',()=>{
+ document.querySelectorAll('.date-card').forEach(c=>c.classList.remove('selected'));
+ card.classList.add('selected');document.getElementById('cardDetail').textContent=card.dataset.detail;
+}));
 
-/* Hidden note */
-document.getElementById('secretButton')?.addEventListener('click',e=>{
-  const text=document.getElementById('secretText');
-  text.hidden=!text.hidden;
-  e.currentTarget.textContent=text.hidden?'there\'s one more thing here...':'okay, this one was just for you ♡';
-});
+const photos=[
+['20260913145619135.jpg','one of my favourite pictures of us'],
+['20260913145620022.jpg','you looked so pretty here'],
+['20260913145623476.jpg','just us ♡'],
+['20260913145623805.jpg','one of those moments'],
+['PXL_20260912_064556914.jpg','you ♡'],
+['PXL_20260912_064649801.jpg','this face'],
+['PXL_20260915_085033379.jpg','you, being you'],
+['PXL_20260915_085042633.MP.jpg','a little moment together'],
+['PXL_20260925_072819836.jpg','you in yellow'],
+['PXL_20260925_072822775.jpg','another favourite'],
+['PXL_20260925_072831129.jpg','pretty as always'],
+['PXL_20260925_114406222.jpg','one more memory']
+];
+let photoIndex=0;
+const gi=document.getElementById('galleryImage'),gc=document.getElementById('galleryCaption'),pc=document.getElementById('photoCounter'),dots=document.getElementById('photoDots');
+photos.forEach((p,i)=>{const d=document.createElement('button');d.className='photo-dot'+(i===0?' active':'');d.type='button';d.ariaLabel='Photo '+(i+1);d.addEventListener('click',()=>setPhoto(i));dots.appendChild(d)});
+function setPhoto(i){photoIndex=(i+photos.length)%photos.length;gi.style.opacity='0';setTimeout(()=>{gi.src='assets/'+photos[photoIndex][0];gc.textContent=photos[photoIndex][1];pc.textContent=String(photoIndex+1).padStart(2,'0')+' / 12';document.querySelectorAll('.photo-dot').forEach((d,j)=>d.classList.toggle('active',j===photoIndex));gi.style.opacity='1'},120)}
+document.getElementById('prevPhoto').addEventListener('click',()=>setPhoto(photoIndex-1));
+document.getElementById('nextPhoto').addEventListener('click',()=>setPhoto(photoIndex+1));
+gi.addEventListener('click',()=>setPhoto(photoIndex+1));
 
-/* Promise interaction */
-document.getElementById('promiseButton')?.addEventListener('click',e=>{
-  const response=document.getElementById('promiseResponse');
-  const lines=[
-    'Then I promise I\'ll keep trying. ♡',
-    'No perfect promises. Just a real one.',
-    'I\'ll communicate. I\'ll listen. I\'ll choose us.'
-  ];
-  const next=Number(e.currentTarget.dataset.count||0);
-  response.textContent=lines[next%lines.length];
-  e.currentTarget.dataset.count=String(next+1);
-  for(let i=0;i<5;i++) setTimeout(()=>makeHeart(43+Math.random()*14,72),i*90);
+document.querySelectorAll('.reason-buttons button').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('.reason-buttons button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('reasonMessage').textContent=b.dataset.message;
+}));
+
+document.getElementById('promiseButton').addEventListener('click',()=>{
+ const r=document.getElementById('promiseResponse');r.textContent=r.textContent?'Then I'll keep proving it. ♡':'I hope so. Because I mean it. ♡';
 });
 
-/* Missing-image fallback */
-document.querySelectorAll('img').forEach(img=>{
-  img.addEventListener('error',()=>{
-    img.style.display='none';
-    const box=img.parentElement;
-    if(box?.classList.contains('image-box')) box.classList.add('missing-photo');
-  });
-});
+document.getElementById('restart').addEventListener('click',()=>{unlocked=false;nameInput.value='';msg.textContent='you know this one.';showSlide(0)});
 
-window.addEventListener('load',()=>{
-  document.body.classList.add('locked');
-  document.querySelector('.hero-copy')?.classList.add('visible');
+document.addEventListener('keydown',e=>{
+ if(e.target.matches('input,textarea')) return;
+ if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1)}
+ if(e.key==='ArrowLeft')go(-1);
 });
-
-window.addEventListener('beforeunload',()=>clearInterval(heartTimer));
+let touchX=0;
+document.addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>55)go(dx<0?1:-1)},{passive:true});
+showSlide(0);
