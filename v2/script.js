@@ -33,7 +33,7 @@ image.onclick=function(){setPhoto(pi+1);};
 
 document.querySelectorAll('.paper-note').forEach(function(b){b.onclick=function(){document.getElementById('noteReveal').textContent=this.dataset.note;toastMsg('you opened one.');};});
 var lore={
-bopal:'Bhopal. MUN. That night walk near the hotel. Before everything had a name.',
+bhopal:'Bhopal. MUN. That night walk near the hotel. Before everything had a name.',
 taobao:'Tao Bao. First date. One of the little facts that became ours.',
 1903:'19.03.2026. More than best friends.',
 2003:'20.03.2026. Officially us. The date this whole thing keeps coming back to.'
