@@ -6,8 +6,13 @@ var photos=[
 ];
 function show(id){
  current=id;
- pages.forEach(function(p){p.classList.toggle('active',p.id===id);});
- window.scrollTo({top:0,behavior:'smooth'});
+ pages.forEach(function(p){
+   var active=p.id===id;
+   p.classList.toggle('active',active);
+   p.hidden=!active;
+   p.setAttribute('aria-hidden',active?'false':'true');
+ });
+ window.scrollTo(0,0);
 }
 function toastMsg(msg){
  toast.textContent=msg;toast.classList.add('show');clearTimeout(toast._t);
@@ -17,6 +22,7 @@ document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener(
 document.querySelectorAll('[data-back]').forEach(function(b){b.addEventListener('click',function(){show('home');});});
 document.getElementById('homeBtn').onclick=function(){show('home');};
 document.getElementById('enterBtn').onclick=function(){show('notes');toastMsg('welcome back. ♡');};
+show('home');
 
 var image=document.getElementById('galleryImage'),caption=document.getElementById('galleryCaption'),dots=document.getElementById('photoDots'),pi=0;
 photos.forEach(function(_,i){
