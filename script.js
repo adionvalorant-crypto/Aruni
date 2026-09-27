@@ -305,6 +305,104 @@ function init(){
     }
   });
 
+  /* extra sweet Easter eggs */
+  var sweetToast=null;
+  function sweet(message){
+    discoveries++;
+    if(!sweetToast){
+      sweetToast=document.createElement('div');
+      sweetToast.style.cssText='position:fixed;left:50%;bottom:22%;transform:translate(-50%,10px);z-index:1000;max-width:82vw;padding:14px 20px;background:#fff8f4ee;border:1px solid #d9b9c1;border-radius:999px;color:#a93652;font:16px var(--serif);text-align:center;opacity:0;transition:all .35s ease;pointer-events:none;box-shadow:0 10px 35px #5a26301a';
+      document.body.appendChild(sweetToast);
+    }
+    sweetToast.textContent=message;
+    sweetToast.style.opacity='1';
+    sweetToast.style.transform='translate(-50%,0)';
+    clearTimeout(sweetToast._timer);
+    sweetToast._timer=setTimeout(function(){
+      sweetToast.style.opacity='0';
+      sweetToast.style.transform='translate(-50%,10px)';
+    },3800);
+  }
+
+  var sweetKeys='';
+  document.addEventListener('keydown',function(e){
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
+    sweetKeys=(sweetKeys+e.key.toLowerCase()).slice(-10);
+    if(sweetKeys.indexOf('aruni')>-1){
+      sweet('Hi, Aruni. Yes, this whole ridiculous thing is for you.');
+      sweetKeys='';
+    }else if(sweetKeys.indexOf('iloveyou')>-1){
+      sweet('I love you. In case the rest of this website was somehow unclear.');
+      sweetKeys='';
+    }else if(sweetKeys.indexOf('19march')>-1){
+      sweet('19.03.2026. One day before “officially us”. Still important.');
+      sweetKeys='';
+    }else if(sweetKeys.indexOf('mun')>-1){
+      sweet('Bhopal. MUN. That night. I remember.');
+      sweetKeys='';
+    }
+  });
+
+  var officialCard=document.querySelector('.date-card.featured');
+  if(officialCard){
+    var officialTaps=0, officialTimer=null;
+    officialCard.addEventListener('dblclick',function(){
+      sweet('20.03.2026. The day “us” became official.');
+    });
+    officialCard.addEventListener('click',function(){
+      officialTaps++;
+      clearTimeout(officialTimer);
+      officialTimer=setTimeout(function(){officialTaps=0;},1100);
+      if(officialTaps===4){
+        sweet('Four clicks for one date. You really wanted to make sure.');
+        officialTaps=0;
+      }
+    });
+  }
+
+  var heroCard=document.querySelector('.hero-card');
+  if(heroCard){
+    var heroTaps=0, heroTimer=null;
+    heroCard.addEventListener('click',function(){
+      heroTaps++;
+      clearTimeout(heroTimer);
+      heroTimer=setTimeout(function(){heroTaps=0;},1000);
+      if(heroTaps===3){
+        sweet('Yeah. I like this picture of us too.');
+        heroTaps=0;
+      }
+    });
+  }
+
+  var gallery=document.getElementById('galleryImage');
+  var gallerySecretCount=0;
+  if(gallery){
+    gallery.addEventListener('click',function(){
+      gallerySecretCount++;
+      if(gallerySecretCount===12){
+        sweet('You made it through all 12. There are a lot of little memories in here.');
+        gallerySecretCount=0;
+      }
+    });
+  }
+
+  var idleTimer=null;
+  function resetSweetIdle(){
+    clearTimeout(idleTimer);
+    if(current===12){
+      idleTimer=setTimeout(function(){
+        if(current===12)sweet('If you stayed this long, I hope you know how much I love you.');
+      },10000);
+    }
+  }
+  document.addEventListener('click',resetSweetIdle);
+  document.addEventListener('touchend',resetSweetIdle);
+  var originalShowSlide=showSlide;
+  showSlide=function(n,direction){
+    originalShowSlide(n,direction);
+    resetSweetIdle();
+  };
+
   var restart=document.getElementById('restart');
   if(restart){
     restart.onclick=function(){
