@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded',()=>{
 const slides=[...document.querySelectorAll('.slide')];
 let current=0, unlocked=false;
 const counter=document.getElementById('slideCounter'), progress=document.getElementById('progress');
@@ -86,3 +87,4 @@ let touchX=0;
 document.addEventListener('touchstart',e=>touchX=e.changedTouches[0].clientX,{passive:true});
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>55)go(dx<0?1:-1)},{passive:true});
 showSlide(0);
+});
