@@ -213,6 +213,62 @@ function init(){
   function updateStats(){var el=document.getElementById('interactionStats'); if(el){var secs=Math.max(1,Math.round((Date.now()-startedAt)/1000)); el.textContent='You clicked: '+interactions+' · You found: '+discoveries+' · You got wrong: '+wrongAnswers+' · You stayed: '+secs+'s';}}
   var finalSlide=document.querySelector('.final-slide'); if(finalSlide){new MutationObserver(updateStats).observe(finalSlide,{attributes:true});}
 
+  /* extra hidden memories */
+  var secretHeart=document.getElementById('secretHeart');
+  var heartNote=document.getElementById('heartNote');
+  var heartPressTimer=null;
+  if(secretHeart){
+    secretHeart.addEventListener('click',function(){
+      interactions++;
+      if(heartNote){heartNote.textContent='still you. every single time.'; heartNote.classList.add('show');}
+      setTimeout(function(){if(heartNote){heartNote.classList.remove('show');}},2600);
+    });
+    secretHeart.addEventListener('pointerdown',function(){
+      heartPressTimer=setTimeout(function(){
+        discoveries++;
+        if(heartNote){heartNote.textContent='20.03.2026 — and I would still choose that day.'; heartNote.classList.add('show');}
+      },1200);
+    });
+    ['pointerup','pointerleave','pointercancel'].forEach(function(ev){
+      secretHeart.addEventListener(ev,function(){clearTimeout(heartPressTimer);});
+    });
+  }
+
+  var hiddenWords='';
+  document.addEventListener('keydown',function(e){
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
+    hiddenWords=(hiddenWords+e.key.toLowerCase()).slice(-7);
+    if(hiddenWords.indexOf('taobao')>-1){
+      discoveries++;
+      var detail=document.getElementById('cardDetail');
+      var timeline=document.querySelector('.timeline-slide');
+      if(timeline){
+        var original=detail ? detail.textContent : '';
+        if(detail){detail.textContent='Tao Bao. First date. Still one of my favourite little facts about us.';}
+        setTimeout(function(){if(detail && detail.textContent.indexOf('Tao Bao. First date.')===0){detail.textContent=original;}},4200);
+      }
+      hiddenWords='';
+    }
+  });
+
+  var finalCopy=document.querySelector('.final-copy');
+  if(finalCopy){
+    var taps=0, tapTimer=null;
+    finalCopy.addEventListener('click',function(e){
+      if(e.target.closest && e.target.closest('#restart'))return;
+      taps++;
+      clearTimeout(tapTimer);
+      tapTimer=setTimeout(function(){taps=0;},900);
+      if(taps===7){
+        discoveries++;
+        var old=document.getElementById('interactionStats');
+        if(old){old.textContent='20.03.2026. Still us. ♡';}
+        setTimeout(updateStats,3200);
+        taps=0;
+      }
+    });
+  }
+
   var restart=document.getElementById('restart');
   if(restart){
     restart.onclick=function(){
