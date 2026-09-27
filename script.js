@@ -20,10 +20,10 @@ function acceptedName(v){return /^bhondu+$/i.test(v.trim().replace(/\s+/g,''))}
 unlockForm.addEventListener('submit',e=>{
   e.preventDefault();
   if(acceptedName(nameInput.value)){
-    unlocked=true; msg.textContent='I knew you would. ♡';
+    unlocked=true; msg.textContent='Good. You know. 😒';
     document.getElementById('deck').classList.add('unlocked');
     setTimeout(()=>showSlide(1),500);
-  }else{msg.textContent='You know what I call you. Try again ♡';nameInput.select()}
+  }else{msg.textContent='Nope. Try again.';nameInput.select()}
 });
 
 let audio=null;
@@ -72,10 +72,10 @@ document.querySelectorAll('.reason-buttons button').forEach(b=>b.addEventListene
 }));
 
 document.getElementById('promiseButton').addEventListener('click',()=>{
- const r=document.getElementById('promiseResponse');r.textContent=r.textContent?'Then I'll keep proving it. ♡':'I hope so. Because I mean it. ♡';
+ const r=document.getElementById('promiseResponse');r.textContent=r.textContent?'Good. Then I'll keep proving it.':'Alright. I mean it.';
 });
 
-document.getElementById('restart').addEventListener('click',()=>{unlocked=false;nameInput.value='';msg.textContent='you know this one.';showSlide(0)});
+document.getElementById('restart').addEventListener('click',()=>{unlocked=false;nameInput.value='';msg.textContent='';showSlide(0)});
 
 document.addEventListener('keydown',e=>{
  if(e.target.matches('input,textarea')) return;
