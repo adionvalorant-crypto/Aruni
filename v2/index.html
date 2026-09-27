@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7efe9">
+<title>our little place ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<div class="grain"></div>
+<div class="room" id="room">
+  <header class="topbar">
+    <button class="brand" id="homeBtn" type="button">our little place <span>♡</span></button>
+    <div class="date">est. 27.09.2026</div>
+    <button class="music" id="musicBtn" type="button">♪</button>
+  </header>
+
+  <main>
+    <section class="home page active" id="home">
+      <div class="welcome">
+        <span class="eyebrow">PRIVATE SPACE • JUST US</span>
+        <h1>hey.<br><em>you're here.</em></h1>
+        <p>Welcome back.</p>
+        <button class="enter" id="enterBtn" type="button">come in →</button>
+      </div>
+      <div class="room-card photo-card" data-open="photos">
+        <img src="../assets/PXL_20260925_072819836.jpg" alt="us">
+        <span>the photo wall</span>
+      </div>
+      <div class="room-card note-card" data-open="notes"><span class="tiny">DRAWER 01</span><strong>things I wanted to tell you</strong><span>open it</span></div>
+      <div class="room-card lore-card" data-open="lore"><span class="tiny">DRAWER 02</span><strong>our completely unnecessary lore</strong><span>you probably know this stuff</span></div>
+      <div class="room-card future-card" data-open="future"><span class="tiny">DRAWER 03</span><strong>things we haven't done yet</strong><span>yet.</span></div>
+      <div class="home-stamp">27.09.2026<br><small>the day this little place began</small></div>
+    </section>
+
+    <section class="page drawer-page" id="photos">
+      <button class="back" data-back>← back to our place</button>
+      <span class="eyebrow">THE PHOTO WALL</span>
+      <h2>little pieces of <em>us.</em></h2>
+      <div class="gallery">
+        <button class="gallery-arrow" id="prevPhoto">←</button>
+        <figure class="polaroid">
+          <img id="galleryImage" src="../assets/20260913145619135.jpg" alt="memory">
+          <figcaption id="galleryCaption">this one just felt right</figcaption>
+        </figure>
+        <button class="gallery-arrow" id="nextPhoto">→</button>
+      </div>
+      <div class="photo-dots" id="photoDots"></div>
+      <p class="soft">Some things don't need a caption.</p>
+    </section>
+
+    <section class="page drawer-page" id="notes">
+      <button class="back" data-back>← back to our place</button>
+      <span class="eyebrow">DRAWER 01</span>
+      <h2>things I wanted<br><em>to tell you.</em></h2>
+      <div class="note-grid">
+        <button class="paper-note" data-note="I still like spending time with you even when we're doing absolutely nothing.">01</button>
+        <button class="paper-note" data-note="Sometimes I see something and my first thought is that I need to tell you.">02</button>
+        <button class="paper-note" data-note="You are unfortunately still my favourite person.">03</button>
+        <button class="paper-note" data-note="I know we won't get everything right. I still want all the ordinary days with you.">04</button>
+        <button class="paper-note" data-note="You make normal days feel like they belong to us.">05</button>
+        <button class="paper-note" data-note="For the record: I love you. No elaborate website required this time.">06</button>
+      </div>
+      <div class="note-reveal" id="noteReveal">pick one.</div>
+    </section>
+
+    <section class="page drawer-page dark-page" id="lore">
+      <button class="back" data-back>← back to our place</button>
+      <span class="eyebrow">DRAWER 02</span>
+      <h2>our completely<br><em>unnecessary lore.</em></h2>
+      <div class="lore-list">
+        <button data-lore="bhopal">Bhopal / MUN</button>
+        <button data-lore="taobao">Tao Bao</button>
+        <button data-lore="1903">19.03.2026</button>
+        <button data-lore="2003">20.03.2026</button>
+      </div>
+      <div class="lore-reveal" id="loreReveal">choose a piece of lore.</div>
+    </section>
+
+    <section class="page drawer-page" id="future">
+      <button class="back" data-back>← back to our place</button>
+      <span class="eyebrow">DRAWER 03</span>
+      <h2>things we haven't<br><em>done yet.</em></h2>
+      <div class="future-list">
+        <button data-future="date">another proper date</button>
+        <button data-future="trip">a place we've never been</button>
+        <button data-future="food">a meal we haven't tried</button>
+        <button data-future="random">something completely stupid</button>
+      </div>
+      <div class="future-reveal" id="futureReveal">pick one. we'll get there.</div>
+    </section>
+
+    <section class="page drawer-page" id="openwhen">
+      <button class="back" data-back>← back to our place</button>
+      <span class="eyebrow">THE LITTLE DRAWER</span>
+      <h2>open when<br><em>you need me.</em></h2>
+      <div class="envelopes">
+        <button data-openwhen="angry">you're angry at me</button>
+        <button data-openwhen="miss">you miss me</button>
+        <button data-openwhen="bad">today was bad</button>
+        <button data-openwhen="sleep">you can't sleep</button>
+        <button data-openwhen="laugh">you need to laugh</button>
+        <button data-openwhen="love">you just want me</button>
+      </div>
+      <div class="open-reveal" id="openReveal"></div>
+    </section>
+
+    <section class="page drawer-page random-page" id="random">
+      <button class="back" data-back>← back to our place</button>
+      <span class="eyebrow">RANDOM US</span>
+      <h2>give me<br><em>something random.</em></h2>
+      <button class="random-button" id="randomBtn" type="button">surprise me</button>
+      <div class="random-reveal" id="randomReveal">you never know what you'll get.</div>
+    </section>
+
+    <section class="page drawer-page add-page" id="add">
+      <button class="back" data-back>← back to our place</button>
+      <span class="eyebrow">A LITTLE SPACE FOR LATER</span>
+      <h2>leave something<br><em>for us.</em></h2>
+      <p class="soft">This stays on this browser. Add a tiny memory, thought, or inside joke.</p>
+      <textarea id="memoryInput" maxlength="180" placeholder="something only we need to remember..."></textarea>
+      <button class="save-memory" id="saveMemory" type="button">put it in the drawer →</button>
+      <div class="saved-memory" id="savedMemory"></div>
+    </section>
+
+    <section class="page ending-page" id="ending">
+      <span class="eyebrow">ONE LAST THING</span>
+      <h2>this isn't<br><em>the end.</em></h2>
+      <p>There will be more photos.<br>More stupid stories.<br>More dates.<br>More us.</p>
+      <div class="forever">27.09.2026 → ∞</div>
+      <button class="enter" data-back type="button">go home ♡</button>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button data-open="notes">notes</button>
+    <button data-open="photos">photos</button>
+    <button data-open="random">random</button>
+    <button data-open="openwhen">open when</button>
+    <button data-open="add">add something</button>
+  </nav>
+</div>
+
+<audio id="song" loop preload="auto" src="../assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
+<div class="toast" id="toast"></div>
+<script src="script.js?v=1"></script>
+</body>
+</html>
