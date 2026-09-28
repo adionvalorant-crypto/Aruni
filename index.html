@@ -40,6 +40,25 @@
 </div>
 <audio id="song" loop preload="auto" src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
 <div class="toast" id="toast"></div>
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script><script>
+(function(){
+  window.openPage=function(id){
+    document.querySelectorAll('.page').forEach(function(p){
+      var on=p.id===id;
+      p.hidden=!on;
+      p.classList.toggle('active',on);
+    });
+    window.scrollTo(0,0);
+  };
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('[data-open],[data-back],#homeBtn,#enterBtn');
+    if(!el)return;
+    if(el.hasAttribute('data-open')){e.preventDefault();window.openPage(el.getAttribute('data-open'));return;}
+    if(el.hasAttribute('data-back')||el.id==='homeBtn'){e.preventDefault();window.openPage('home');return;}
+    if(el.id==='enterBtn'){e.preventDefault();window.openPage('notes');return;}
+  },true);
+  window.openPage('home');
+})();
+</script>
 </body>
 </html>
