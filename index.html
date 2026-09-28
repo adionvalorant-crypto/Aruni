@@ -3,244 +3,255 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7efe9">
+<meta name="theme-color" content="#21191c">
 <title>our little place ♡</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=5">
+<style>
+:root{--paper:#f7efe9;--paper2:#fffaf7;--ink:#30252a;--muted:#806d73;--red:#a93652;--line:#d8c5c7;--dark:#21191c;--serif:"DM Serif Display",serif;--sans:Quicksand,sans-serif;--mono:"DM Mono",monospace}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--dark);color:var(--ink);font-family:var(--sans)}
+button,input,textarea{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+#app{width:100%;height:100%;position:relative}
+.slide{position:absolute;inset:0;display:none;overflow:auto;padding:clamp(22px,4vw,55px);padding-bottom:90px;background:var(--paper)}
+.slide.active{display:flex;flex-direction:column;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.top{display:flex;justify-content:space-between;align-items:center;font:10px var(--mono);color:var(--muted);letter-spacing:.08em}
+.brand{border:0;background:transparent;color:var(--ink);padding:5px 0}.brand span{color:var(--red)}
+h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-.055em;line-height:.9;margin:0}h1{font-size:clamp(70px,12vw,155px)}h2{font-size:clamp(55px,9vw,115px)}em{color:var(--red)}
+.eyebrow{font:10px var(--mono);letter-spacing:.14em;color:var(--red)}
+.center{justify-content:center;align-items:center;text-align:center}.center p{color:var(--muted)}
+.btn{border:1px solid var(--red);background:var(--red);color:#fff;padding:13px 20px;border-radius:3px;font:11px var(--mono);margin-top:22px}.ghost{background:transparent;color:var(--red)}
+.gate-box{width:min(500px,92vw);padding:clamp(28px,6vw,60px);background:var(--paper2);border:1px solid var(--line);box-shadow:0 25px 80px #0002}.gate-box h1{font-size:clamp(55px,9vw,100px);margin:18px 0}.gate-box p{color:var(--muted);font-size:13px}.gate-input{display:flex;gap:8px;margin-top:25px}.gate-input input{flex:1;min-width:0;border:1px solid var(--line);background:white;padding:14px;outline:none;font:13px var(--mono);text-align:center}.error{height:22px;color:var(--red);font:10px var(--mono);margin-top:12px}
+.hero{justify-content:center;max-width:1250px;margin:auto;width:100%}.hero h1{margin:22px 0}.hero .sub{font-size:16px;color:var(--muted);max-width:550px}.meta{font:9px var(--mono);color:var(--muted);margin-top:45px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(25px,6vw,90px);align-items:center;max-width:1200px;width:100%;margin:auto}.photo{width:100%;max-height:65vh;object-fit:cover;background:#fff;padding:12px;box-shadow:0 20px 60px #3b20251c;transform:rotate(-1.2deg)}.caption{font:16px var(--serif);margin-top:15px;text-align:center}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:35px 0;max-width:1000px}.card{border:1px solid var(--line);background:var(--paper2);padding:25px;min-height:170px;display:flex;flex-direction:column;justify-content:space-between}.card strong{font:25px var(--serif)}.card small{font:9px var(--mono);color:var(--muted)}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:25px}.note{border:0;min-height:145px;background:#f4dfb8;padding:22px;text-align:left;font:34px var(--serif);color:var(--red)}.note:nth-child(2n){background:#f1e8c8;transform:rotate(1deg)}.reveal{margin-top:20px;border-top:1px solid var(--line);padding:20px 0;font:23px var(--serif);color:var(--red);min-height:70px}
+.lore-list,.future-list,.when-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:850px;margin-top:25px}.choice{border:1px solid var(--line);background:var(--paper2);padding:20px;text-align:left;font:18px var(--serif)}.dark{background:var(--dark);color:#fff5f1}.dark .top,.dark .soft{color:#cdbbc0}.dark .choice{background:transparent;border-color:#5e474d;color:#fff5f1}.dark .eyebrow{color:#ef8294}
+.timeline{max-width:850px;margin:35px auto;width:100%}.event{display:grid;grid-template-columns:150px 1fr;gap:25px;padding:24px 0;border-top:1px solid var(--line)}.event b{font:11px var(--mono);color:var(--red)}.event strong{font:25px var(--serif);font-weight:400}.event p{color:var(--muted);margin:5px 0}
+.gallery{display:grid;grid-template-columns:60px 1fr 60px;align-items:center;gap:15px;max-width:750px;width:100%;margin:25px auto}.gallery img{width:100%;height:min(58vh,600px);object-fit:cover;background:#fff;padding:12px;box-shadow:0 20px 60px #3b20251c}.arrow{border:1px solid var(--line);background:var(--paper2);border-radius:50%;width:48px;height:48px;color:var(--red);font-size:20px}.dots{text-align:center}.dot{width:7px;height:7px;border:0;border-radius:50%;background:var(--line);padding:0;margin:4px}.dot.active{background:var(--red)}
+.random{margin:35px auto;width:min(700px,100%);padding:45px;background:var(--paper2);border:1px solid var(--line);text-align:center}.random-text{font:28px var(--serif);min-height:80px;color:var(--red)}
+textarea{width:min(700px,100%);height:150px;margin-top:25px;border:1px solid var(--line);padding:18px;background:var(--paper2);outline:none;resize:none}.saved{width:min(700px,100%);margin-top:15px;padding:18px;background:#f4dfb8;font:18px var(--serif);min-height:30px}
+.footer{margin-top:auto;text-align:center;font:9px var(--mono);color:var(--muted)}
+.nav{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;display:flex;gap:5px;padding:5px;background:#fffaf7ee;border:1px solid var(--line);border-radius:99px;box-shadow:0 10px 35px #0002}.nav button{border:0;background:transparent;padding:9px 13px;font:9px var(--mono);color:var(--muted);border-radius:99px}.nav button:hover{background:var(--paper);color:var(--red)}
+.nav .counter{padding:9px 8px;color:var(--red)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:80;background:#fffaf7;border:1px solid var(--line);padding:12px 18px;color:var(--red);font:12px var(--mono);display:none;max-width:90vw;text-align:center}.toast.show{display:block}
+@media(max-width:700px){.split{grid-template-columns:1fr}.cards,.notes{grid-template-columns:1fr 1fr}.cards .card{min-height:130px;padding:18px}.notes .note{min-height:105px;font-size:27px}.lore-list,.future-list,.when-list{grid-template-columns:1fr}.event{grid-template-columns:105px 1fr;gap:12px}.gallery{grid-template-columns:42px 1fr 42px}.gallery img{height:52vh}.nav{max-width:calc(100vw - 12px);overflow-x:auto;white-space:nowrap}.nav button{padding:8px 10px}.nav .counter{display:none}}
+</style>
 </head>
 <body>
+<div id="app">
 <div class="grain"></div>
-<div class="room" id="room">
-  <header class="topbar">
-    <button class="brand" id="homeBtn" type="button">our little place <span>♡</span></button>
-    <div class="date">est. 27.09.2026</div>
-    <button class="music" id="musicBtn" type="button">♪</button>
-  </header>
-  <main>
-    <section class="home page active" id="home">
-      <div class="welcome"><span class="eyebrow">PRIVATE SPACE • JUST US</span><h1>hey.<br><em>you're here.</em></h1><p>Welcome back.</p><button class="enter" id="enterBtn" type="button">come in →</button></div>
-      <div class="room-card photo-card" data-open="photos"><img src="assets/PXL_20260925_072819836.jpg" alt="us"><span>the photo wall</span></div>
-      <div class="room-card note-card" data-open="notes"><span class="tiny">DRAWER 01</span><strong>things I wanted to tell you</strong><span>open it</span></div>
-      <div class="room-card lore-card" data-open="lore"><span class="tiny">DRAWER 02</span><strong>our completely unnecessary lore</strong><span>you probably know this stuff</span></div>
-      <div class="room-card future-card" data-open="future"><span class="tiny">DRAWER 03</span><strong>things we haven't done yet</strong><span>yet.</span></div>
-      <div class="home-stamp">27.09.2026<br><small>the day this little place began</small></div>
-    </section>
-    <section class="page drawer-page" id="photos"><button class="back" data-back>← back to our place</button><span class="eyebrow">THE PHOTO WALL</span><h2>little pieces of <em>us.</em></h2><div class="gallery"><button class="gallery-arrow" id="prevPhoto">←</button><figure class="polaroid"><img id="galleryImage" src="assets/20260913145619135.jpg" alt="memory"><figcaption id="galleryCaption">this one just felt right</figcaption></figure><button class="gallery-arrow" id="nextPhoto">→</button></div><div class="photo-dots" id="photoDots"></div><p class="soft">Some things don't need a caption.</p></section>
-    <section class="page drawer-page" id="notes"><button class="back" data-back>← back to our place</button><span class="eyebrow">DRAWER 01</span><h2>things I wanted<br><em>to tell you.</em></h2><div class="note-grid"><button class="paper-note" data-note="I still like spending time with you even when we're doing absolutely nothing.">01</button><button class="paper-note" data-note="Sometimes I see something and my first thought is that I need to tell you.">02</button><button class="paper-note" data-note="You are unfortunately still my favourite person.">03</button><button class="paper-note" data-note="I know we won't get everything right. I still want all the ordinary days with you.">04</button><button class="paper-note" data-note="You make normal days feel like they belong to us.">05</button><button class="paper-note" data-note="For the record: I love you. No elaborate website required this time.">06</button></div><div class="note-reveal" id="noteReveal">pick one.</div></section>
-    <section class="page drawer-page dark-page" id="lore"><button class="back" data-back>← back to our place</button><span class="eyebrow">DRAWER 02</span><h2>our completely<br><em>unnecessary lore.</em></h2><div class="lore-list"><button data-lore="bhopal">Bhopal / MUN</button><button data-lore="taobao">Tao Bao</button><button data-lore="1903">19.03.2026</button><button data-lore="2003">20.03.2026</button></div><div class="lore-reveal" id="loreReveal">choose a piece of lore.</div></section>
-    <section class="page drawer-page" id="future"><button class="back" data-back>← back to our place</button><span class="eyebrow">DRAWER 03</span><h2>things we haven't<br><em>done yet.</em></h2><div class="future-list"><button data-future="date">another proper date</button><button data-future="trip">a place we've never been</button><button data-future="food">a meal we haven't tried</button><button data-future="random">something completely stupid</button></div><div class="future-reveal" id="futureReveal">pick one. we'll get there.</div></section>
-    <section class="page drawer-page" id="openwhen"><button class="back" data-back>← back to our place</button><span class="eyebrow">THE LITTLE DRAWER</span><h2>open when<br><em>you need me.</em></h2><div class="envelopes"><button data-openwhen="angry">you're angry at me</button><button data-openwhen="miss">you miss me</button><button data-openwhen="bad">today was bad</button><button data-openwhen="sleep">you can't sleep</button><button data-openwhen="laugh">you need to laugh</button><button data-openwhen="love">you just want me</button></div><div class="open-reveal" id="openReveal"></div></section>
-    <section class="page drawer-page random-page" id="random"><button class="back" data-back>← back to our place</button><span class="eyebrow">RANDOM US</span><h2>give me<br><em>something random.</em></h2><button class="random-button" id="randomBtn" type="button">surprise me</button><div class="random-reveal" id="randomReveal">you never know what you'll get.</div></section>
-    <section class="page drawer-page add-page" id="add"><button class="back" data-back>← back to our place</button><span class="eyebrow">A LITTLE SPACE FOR LATER</span><h2>leave something<br><em>for us.</em></h2><p class="soft">This stays on this browser. Add a tiny memory, thought, or inside joke.</p><textarea id="memoryInput" maxlength="180" placeholder="something only we need to remember..."></textarea><button class="save-memory" id="saveMemory" type="button">put it in the drawer →</button><div class="saved-memory" id="savedMemory"></div></section>
-    <section class="page ending-page" id="ending"><span class="eyebrow">ONE LAST THING</span><h2>this isn't<br><em>the end.</em></h2><p>There will be more photos.<br>More stupid stories.<br>More dates.<br>More us.</p><div class="forever">27.09.2026 → ∞</div><button class="enter" data-back type="button">go home ♡</button></section>
-  </main>
-  <nav class="bottom-nav"><button data-open="notes">notes</button><button data-open="photos">photos</button><button data-open="random">random</button><button data-open="openwhen">open when</button><button data-open="add">add something</button></nav>
+
+<section class="slide active center" id="gate">
+  <div class="gate-box">
+    <div class="eyebrow">PRIVATE SPACE • JUST US</div>
+    <h1>hey.<br><em>you're here.</em></h1>
+    <p>Some things should still have a password.</p>
+    <div class="gate-input">
+      <input id="password" type="password" autocomplete="off" placeholder="the password">
+      <button class="btn" id="unlock" type="button">enter</button>
+    </div>
+    <div class="error" id="gateError"></div>
+    <div class="meta">27.09.2026 — our little place</div>
+  </div>
+</section>
+
+<section class="slide hero" id="s1">
+  <div class="top"><span class="brand">our little place <span>♡</span></span><span>01 / 11</span></div>
+  <div style="margin:auto 0"><div class="eyebrow">WELCOME BACK</div><h1>okay.<br><em>we're good.</em></h1><p class="sub">No apology this time. No dramatic ending. Just a little corner of the internet that belongs to us.</p><button class="btn" data-next type="button">come in →</button></div>
+  <div class="footer">V2 • 27.09.2026</div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="top"><span class="eyebrow">02 • THE IDEA</span><span>our little place</span></div>
+  <div class="split">
+    <div><h2>not a<br><em>presentation.</em></h2><p class="sub">Okay, technically it is one now. But the point is that you can come back here whenever you want. There is no finish line.</p></div>
+    <div class="card"><small>RULE 01</small><strong>Nothing here has to be important.</strong><small>ordinary things count too.</small></div>
+  </div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="top"><span class="eyebrow">03 • THE PHOTO WALL</span><span>little pieces of us</span></div>
+  <div class="gallery">
+    <button class="arrow" id="prev" type="button">←</button>
+    <img id="photo" src="assets/20260913145619135.jpg" alt="memory">
+    <button class="arrow" id="next" type="button">→</button>
+  </div>
+  <div class="dots" id="dots"></div>
+  <div class="footer">some things don't need a caption.</div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="top"><span class="eyebrow">04 • THINGS I WANTED TO TELL YOU</span><span>drawer 01</span></div>
+  <h2 style="margin-top:auto">a few<br><em>things.</em></h2>
+  <div class="notes">
+    <button class="note" data-note="I still like spending time with you even when we're doing absolutely nothing." type="button">01</button>
+    <button class="note" data-note="Sometimes I see something and my first thought is that I need to tell you." type="button">02</button>
+    <button class="note" data-note="You are unfortunately still my favourite person." type="button">03</button>
+    <button class="note" data-note="I know we won't get everything right. I still want all the ordinary days with you." type="button">04</button>
+    <button class="note" data-note="You make normal days feel like they belong to us." type="button">05</button>
+    <button class="note" data-note="For the record: I love you. No elaborate website required this time." type="button">06</button>
+  </div>
+  <div class="reveal" id="noteReveal">pick one.</div>
+</section>
+
+<section class="slide dark" id="s5">
+  <div class="top"><span class="eyebrow">05 • OUR COMPLETELY UNNECESSARY LORE</span><span>drawer 02</span></div>
+  <h2 style="margin-top:35px">the lore<br><em>department.</em></h2>
+  <div class="lore-list">
+    <button class="choice" data-lore="bhopal" type="button">Bhopal / MUN</button>
+    <button class="choice" data-lore="taobao" type="button">Tao Bao</button>
+    <button class="choice" data-lore="1903" type="button">19.03.2026</button>
+    <button class="choice" data-lore="2003" type="button">20.03.2026</button>
+  </div>
+  <div class="reveal" id="loreReveal">choose a piece of lore.</div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="top"><span class="eyebrow">06 • THE TIMELINE</span><span>how we got here</span></div>
+  <div class="timeline">
+    <div class="event"><b>Bhopal</b><div><strong>MUN + that night walk</strong><p>Before everything had a name.</p></div></div>
+    <div class="event"><b>TAO BAO</b><div><strong>First date</strong><p>One of the little facts that became ours.</p></div></div>
+    <div class="event"><b>19.03.2026</b><div><strong>More than best friends</strong><p>That happened.</p></div></div>
+    <div class="event"><b>20.03.2026</b><div><strong>Officially us</strong><p>The date this whole thing keeps coming back to.</p></div></div>
+    <div class="event"><b>27.09.2026</b><div><strong>This little place began</strong><p>V2. No apology. Just us.</p></div></div>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="top"><span class="eyebrow">07 • THINGS WE HAVEN'T DONE YET</span><span>drawer 03</span></div>
+  <h2 style="margin-top:35px">still<br><em>to do.</em></h2>
+  <div class="future-list">
+    <button class="choice" data-future="date" type="button">another proper date</button>
+    <button class="choice" data-future="trip" type="button">a place we've never been</button>
+    <button class="choice" data-future="food" type="button">a meal we haven't tried</button>
+    <button class="choice" data-future="random" type="button">something completely stupid</button>
+  </div>
+  <div class="reveal" id="futureReveal">pick one. we'll get there.</div>
+</section>
+
+<section class="slide" id="s8">
+  <div class="top"><span class="eyebrow">08 • OPEN WHEN</span><span>little drawer</span></div>
+  <h2 style="margin-top:35px">open when<br><em>you need me.</em></h2>
+  <div class="when-list">
+    <button class="choice" data-when="angry" type="button">you're angry at me</button>
+    <button class="choice" data-when="miss" type="button">you miss me</button>
+    <button class="choice" data-when="bad" type="button">today was bad</button>
+    <button class="choice" data-when="sleep" type="button">you can't sleep</button>
+    <button class="choice" data-when="laugh" type="button">you need to laugh</button>
+    <button class="choice" data-when="love" type="button">you just want me</button>
+  </div>
+  <div class="reveal" id="whenReveal"></div>
+</section>
+
+<section class="slide" id="s9">
+  <div class="top"><span class="eyebrow">09 • RANDOM US</span><span>because why not</span></div>
+  <div class="random">
+    <div class="eyebrow">PRESS THE BUTTON</div>
+    <div class="random-text" id="randomText">you never know what you'll get.</div>
+    <button class="btn" id="randomBtn" type="button">surprise me</button>
+  </div>
+  <div class="footer">there is absolutely no reason this exists.</div>
+</section>
+
+<section class="slide" id="s10">
+  <div class="top"><span class="eyebrow">10 • A LITTLE SPACE FOR LATER</span><span>leave something for us</span></div>
+  <div style="max-width:800px;margin:auto;width:100%">
+    <h2>add something<br><em>for later.</em></h2>
+    <p style="color:var(--muted)">A memory, thought, inside joke, or something completely pointless. It stays on this browser.</p>
+    <textarea id="memory" maxlength="180" placeholder="something only we need to remember..."></textarea>
+    <button class="btn" id="save" type="button">keep it here →</button>
+    <div class="saved" id="saved"></div>
+  </div>
+</section>
+
+<section class="slide center" id="s11">
+  <div>
+    <div class="eyebrow">11 • ONE LAST THING</div>
+    <h1>this isn't<br><em>the end.</em></h1>
+    <p>There will be more photos.<br>More stupid stories.<br>More dates.<br>More us.</p>
+    <div class="meta">27.09.2026 → ∞</div>
+  </div>
+</section>
+
+<div class="nav" id="nav" style="display:none">
+  <button id="back" type="button">←</button>
+  <button class="counter" id="counter" type="button">1 / 11</button>
+  <button id="forward" type="button">→</button>
+  <button id="music" type="button">♪</button>
 </div>
-<audio id="song" loop preload="auto" src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
 <div class="toast" id="toast"></div>
+<audio id="song" loop preload="auto" src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
+</div>
+
 <script>
 (function(){
-  'use strict';
-
-  function $(id){ return document.getElementById(id); }
-  function all(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
-
-  var pages=all('.page');
-  var current='home';
-
-  function show(id){
-    var target=$(id);
-    if(!target) return;
-    current=id;
-    pages.forEach(function(page){
-      var active=page===target;
-      page.classList.toggle('active',active);
-      page.hidden=!active;
-      page.setAttribute('aria-hidden',active?'false':'true');
-    });
-    window.scrollTo(0,0);
-  }
-
-  window.openPage=show;
-
-  /* Navigation */
-  document.addEventListener('click',function(e){
-    var nav=e.target.closest('[data-open],[data-back],#homeBtn,#enterBtn');
-    if(nav){
-      e.preventDefault();
-      if(nav.hasAttribute('data-open')) show(nav.getAttribute('data-open'));
-      else if(nav.id==='enterBtn') show('notes');
-      else show('home');
-      return;
-    }
-  },true);
-
-  /* Photo wall */
-  var photos=[
-    ['20260913145619135.jpg','this one just felt right'],
-    ['20260913145620022.jpg','you looked pretty here'],
-    ['20260913145623476.jpg','just us'],
-    ['20260913145623805.jpg','one of those moments'],
-    ['PXL_20260912_064556914.jpg','you'],
-    ['PXL_20260912_064649801.jpg','this face'],
-    ['PXL_20260915_085033379.jpg','you, being you'],
-    ['PXL_20260915_085042633.MP.jpg','a little moment together'],
-    ['PXL_20260925_072819836.jpg','dumb as always'],
-    ['PXL_20260925_072822775.jpg','another favourite'],
-    ['PXL_20260925_072831129.jpg','pretty as always'],
-    ['PXL_20260925_114406222.jpg','one more memory']
-  ];
-  var image=$('galleryImage'), caption=$('galleryCaption'), dots=$('photoDots'), photoIndex=0;
-
-  function setPhoto(index){
-    if(!image) return;
-    photoIndex=(index+photos.length)%photos.length;
-    image.src='assets/'+photos[photoIndex][0];
-    caption.textContent=photos[photoIndex][1];
-    all('.photo-dot').forEach(function(dot,n){
-      dot.classList.toggle('active',n===photoIndex);
-    });
-  }
-
-  if(dots){
-    photos.forEach(function(_,n){
-      var dot=document.createElement('button');
-      dot.type='button';
-      dot.className='photo-dot'+(n===0?' active':'');
-      dot.setAttribute('aria-label','Photo '+(n+1));
-      dot.addEventListener('click',function(e){e.stopPropagation();setPhoto(n);});
-      dots.appendChild(dot);
-    });
-  }
-  if($('prevPhoto')) $('prevPhoto').addEventListener('click',function(e){e.stopPropagation();setPhoto(photoIndex-1);});
-  if($('nextPhoto')) $('nextPhoto').addEventListener('click',function(e){e.stopPropagation();setPhoto(photoIndex+1);});
-  if(image) image.addEventListener('click',function(e){e.stopPropagation();setPhoto(photoIndex+1);});
-
-  /* Notes */
-  all('.paper-note').forEach(function(button){
-    button.addEventListener('click',function(e){
-      e.stopPropagation();
-      $('noteReveal').textContent=button.getAttribute('data-note')||'';
-    });
-  });
-
-  /* Lore */
-  var lore={
-    bhopal:'Bhopal. MUN. That night walk near the hotel. Before everything had a name.',
-    taobao:'Tao Bao. First date. One of the little facts that became ours.',
-    '1903':'19.03.2026. More than best friends.',
-    '2003':'20.03.2026. Officially us. The date this whole thing keeps coming back to.'
-  };
-  all('[data-lore]').forEach(function(button){
-    button.addEventListener('click',function(e){
-      e.stopPropagation();
-      $('loreReveal').textContent=lore[button.getAttribute('data-lore')];
-    });
-  });
-
-  /* Future */
-  var futures={
-    date:'Another date. No reason. Just us.',
-    trip:'Somewhere neither of us has been yet.',
-    food:'Something neither of us has ordered before.',
-    random:'Something so stupid that we will remember it anyway.'
-  };
-  all('[data-future]').forEach(function(button){
-    button.addEventListener('click',function(e){
-      e.stopPropagation();
-      $('futureReveal').textContent=futures[button.getAttribute('data-future')];
-    });
-  });
-
-  /* Open when */
-  var openWhen={
-    angry:'Be angry. I can take it. Just come back and talk to me.',
-    miss:'I probably miss you too. Unfortunately, this website still cannot teleport me.',
-    bad:'Come here. Today being bad doesn't mean tomorrow has to be.',
-    sleep:'Put the phone down eventually. But before you do: I love you.',
-    laugh:'Fine. Here is your reminder that you chose me voluntarily.',
-    love:'Hi. I love you. That is all.'
-  };
-  all('[data-openwhen]').forEach(function(button){
-    button.addEventListener('click',function(e){
-      e.stopPropagation();
-      $('openReveal').textContent=openWhen[button.getAttribute('data-openwhen')];
-    });
-  });
-
-  /* Random */
-  var randoms=[
-    'Bhopal. That night. Still remember it.',
-    'Tao Bao. First date.',
-    '20.03.2026. Still us.',
-    'You are still unfortunately my favourite person.',
-    'This website exists because apparently normal communication was not enough.',
-    'Go look at a photo.',
-    'Come back tomorrow. I might have added something.',
-    'No message. Just a reminder: I love you.'
-  ];
-  if($('randomBtn')) $('randomBtn').addEventListener('click',function(e){
-    e.stopPropagation();
-    $('randomReveal').textContent=randoms[Math.floor(Math.random()*randoms.length)];
-  });
-
-  /* Local memory */
-  var input=$('memoryInput'), saved=$('savedMemory');
-  try{
-    var stored=localStorage.getItem('aruniV2Memory');
-    if(stored && saved) saved.textContent=stored;
-  }catch(err){}
-  if($('saveMemory')) $('saveMemory').addEventListener('click',function(e){
-    e.stopPropagation();
-    var value=input ? input.value.trim() : '';
-    if(!value){ if(saved) saved.textContent='write something first 😒'; return; }
-    try{localStorage.setItem('aruniV2Memory',value);}catch(err){}
-    saved.textContent=value;
-    input.value='';
-  });
-
-  /* Music */
-  var song=$('song'), music=$('musicBtn');
-  if(music && song) music.addEventListener('click',function(e){
-    e.stopPropagation();
-    if(song.paused){
-      song.play().then(function(){music.textContent='♫';}).catch(function(){music.textContent='♪';});
-    }else{
-      song.pause();
-      music.textContent='♪';
-    }
-  });
-
-  /* Keyboard secrets */
-  var secret='';
-  document.addEventListener('keydown',function(e){
-    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
-    if(e.key==='Escape'){show('home');return;}
-    secret=(secret+String(e.key).toLowerCase()).slice(-8);
-    if(secret==='iloveyou'){
-      secret='';
-      alert('I know. I love you too. ♡');
-    }else if(secret==='taobao'){
-      secret='';
-      show('lore');
-      $('loreReveal').textContent='You found it. Tao Bao. First date. ♡';
-    }
-  });
-
-  /* Tiny click hearts outside controls */
-  document.addEventListener('click',function(e){
-    if(e.target.closest('button,textarea')) return;
-    var heart=document.createElement('span');
-    heart.textContent='♡';
-    heart.style.cssText='position:fixed;left:'+e.clientX+'px;top:'+e.clientY+'px;color:#a93652;z-index:40;pointer-events:none;font-size:18px;transition:.9s ease;transform:translateY(0);opacity:1';
-    document.body.appendChild(heart);
-    requestAnimationFrame(function(){heart.style.transform='translateY(-35px) scale(1.25)';heart.style.opacity='0';});
-    setTimeout(function(){heart.remove();},900);
-  });
-
-  show('home');
+'use strict';
+var unlocked=false,index=0,total=11;
+var slides=[];
+for(var i=1;i<=total;i++) slides.push(document.getElementById('s'+i));
+var nav=document.getElementById('nav'),counter=document.getElementById('counter'),toast=document.getElementById('toast');
+function show(n){
+ if(!unlocked)return;
+ index=Math.max(0,Math.min(total-1,n));
+ slides.forEach(function(s,i){s.classList.toggle('active',i===index);});
+ counter.textContent=(index+1)+' / '+total;
+ document.getElementById('back').style.visibility=index===0?'hidden':'visible';
+ document.getElementById('forward').textContent=index===total-1?'↺':'→';
+ window.scrollTo(0,0);
+}
+function unlock(){
+ var value=(document.getElementById('password').value||'').trim().toLowerCase().replace(/\s+/g,'');
+ if(value==='bhondu'){
+   unlocked=true;
+   document.getElementById('gate').classList.remove('active');
+   nav.style.display='flex';
+   show(0);
+ }else{
+   document.getElementById('gateError').textContent='nope. you know the password.';
+   document.getElementById('password').value='';
+ }
+}
+document.getElementById('unlock').addEventListener('click',unlock);
+document.getElementById('password').addEventListener('keydown',function(e){if(e.key==='Enter')unlock();});
+document.getElementById('forward').addEventListener('click',function(){show(index===total-1?0:index+1);});
+document.getElementById('back').addEventListener('click',function(){show(index-1);});
+document.getElementById('counter').addEventListener('click',function(){show(0);});
+var photos=[
+['20260913145619135.jpg','this one just felt right'],['20260913145620022.jpg','you looked pretty here'],['20260913145623476.jpg','just us'],['20260913145623805.jpg','one of those moments'],['PXL_20260912_064556914.jpg','you'],['PXL_20260912_064649801.jpg','this face'],['PXL_20260915_085033379.jpg','you, being you'],['PXL_20260915_085042633.MP.jpg','a little moment together'],['PXL_20260925_072819836.jpg','dumb as always'],['PXL_20260925_072822775.jpg','another favourite'],['PXL_20260925_072831129.jpg','pretty as always'],['PXL_20260925_114406222.jpg','one more memory']];
+var pi=0,img=document.getElementById('photo'),dots=document.getElementById('dots');
+function setPhoto(n){pi=(n+photos.length)%photos.length;img.src='assets/'+photos[pi][0];dots.querySelectorAll('button').forEach(function(b,i){b.classList.toggle('active',i===pi);});}
+photos.forEach(function(_,i){var b=document.createElement('button');b.type='button';b.className='dot'+(i===0?' active':'');b.onclick=function(){setPhoto(i);};dots.appendChild(b);});
+document.getElementById('prev').onclick=function(){setPhoto(pi-1);};
+document.getElementById('next').onclick=function(){setPhoto(pi+1);};
+img.onclick=function(){setPhoto(pi+1);};
+function bindReveal(selector,id,map){document.querySelectorAll(selector).forEach(function(b){b.onclick=function(){document.getElementById(id).textContent=map[b.dataset[selector.replace('[data-','').replace(']','')]];};});}
+var notes=document.querySelectorAll('[data-note]');notes.forEach(function(b){b.onclick=function(){document.getElementById('noteReveal').textContent=b.dataset.note;}});
+var lore={bhopal:'Bhopal. MUN. That night walk near the hotel. Before everything had a name.',taobao:'Tao Bao. First date. One of the little facts that became ours.','1903':'19.03.2026. More than best friends.','2003':'20.03.2026. Officially us. The date this whole thing keeps coming back to.'};
+document.querySelectorAll('[data-lore]').forEach(function(b){b.onclick=function(){document.getElementById('loreReveal').textContent=lore[b.dataset.lore];}});
+var future={date:'Another date. No reason. Just us.',trip:'Somewhere neither of us has been yet.',food:'Something neither of us has ordered before.',random:'Something so stupid that we will remember it anyway.'};
+document.querySelectorAll('[data-future]').forEach(function(b){b.onclick=function(){document.getElementById('futureReveal').textContent=future[b.dataset.future];}});
+var when={angry:'Be angry. I can take it. Just come back and talk to me.',miss:'I probably miss you too. Unfortunately, this website still cannot teleport me.',bad:'Come here. Today being bad doesn’t mean tomorrow has to be.',sleep:'Put the phone down eventually. But before you do: I love you.',laugh:'Fine. Here is your reminder that you chose me voluntarily.',love:'Hi. I love you. That is all.'};
+document.querySelectorAll('[data-when]').forEach(function(b){b.onclick=function(){document.getElementById('whenReveal').textContent=when[b.dataset.when];}});
+var randoms=['Bhopal. That night. Still remember it.','Tao Bao. First date.','20.03.2026. Still us.','You are still unfortunately my favourite person.','This website exists because apparently normal communication was not enough.','Go look at a photo.','Come back tomorrow. I might have added something.','No message. Just a reminder: I love you.'];
+document.getElementById('randomBtn').onclick=function(){document.getElementById('randomText').textContent=randoms[Math.floor(Math.random()*randoms.length)];};
+var input=document.getElementById('memory'),saved=document.getElementById('saved');
+try{var old=localStorage.getItem('aruniV2Memory');if(old)saved.textContent=old;}catch(e){}
+document.getElementById('save').onclick=function(){var v=input.value.trim();if(!v){saved.textContent='write something first 😒';return;}try{localStorage.setItem('aruniV2Memory',v);}catch(e){}saved.textContent=v;input.value='';};
+var song=document.getElementById('song');
+document.getElementById('music').onclick=function(){if(song.paused){song.play().catch(function(){});this.textContent='♫';}else{song.pause();this.textContent='♪';}};
+document.addEventListener('keydown',function(e){
+ if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+ if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();show(index===total-1?0:index+1);}
+ if(e.key==='ArrowLeft')show(index-1);
+});
+var touchX=0;
+document.addEventListener('touchstart',function(e){if(e.touches.length===1)touchX=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',function(e){if(!unlocked)return;var dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>60)show(index+(dx<0?1:-1));},{passive:true});
+var secret='';
+document.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;secret=(secret+e.key.toLowerCase()).slice(-8);if(secret==='iloveyou'){toast.textContent='I know. I love you too. ♡';toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},2500);secret='';}if(secret==='taobao'){show(4);document.getElementById('loreReveal').textContent='You found it. Tao Bao. First date. ♡';secret='';}});
 })();
 </script>
 </body>
