@@ -26,118 +26,87 @@
       margin: 0;
       min-height: 100vh;
       overflow-x: hidden;
-      background:
-        radial-gradient(ellipse at 50% 38%, rgba(110, 15, 32, .12), transparent 52%),
-        var(--black);
+      background: radial-gradient(ellipse at 50% 38%, rgba(110, 15, 32, .12), transparent 52%), var(--black);
       color: var(--white);
       font-family: var(--sans);
     }
     body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .12;
+      content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .12;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       z-index: 2;
     }
     main {
-      width: min(720px, calc(100% - 44px));
-      min-height: 100svh;
-      margin: 0 auto;
-      padding: 12vh 0 8vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
+      width: min(720px, calc(100% - 44px)); min-height: 100svh; margin: 0 auto;
+      padding: 12vh 0 8vh; display: flex; flex-direction: column; justify-content: center; position: relative;
     }
-    .eyebrow {
-      color: var(--muted);
-      font: 10px var(--mono);
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      animation: rise .9s .05s both;
+    .eyebrow { color: var(--muted); font: 10px var(--mono); letter-spacing: .2em; text-transform: uppercase; animation: rise .9s .05s both; }
+    h1 { margin: 26px 0 34px; color: var(--red); font: 400 clamp(76px, 15vw, 138px)/.88 var(--serif); letter-spacing: -.065em; animation: rise 1s .15s both; }
+    .rule { width: 54px; height: 1px; background: var(--red); margin: 0 0 34px; opacity: .8; animation: widen 1s .45s both; }
+    .letter { max-width: 590px; animation: rise 1s .35s both; }
+    p { margin: 0 0 19px; color: #c8c0bd; font-size: 15px; line-height: 1.95; font-weight: 400; }
+    .signoff { margin-top: 36px; color: var(--soft-red); font: italic 27px var(--serif); }
+    footer { margin-top: 64px; color: #655d5b; font: 9px var(--mono); letter-spacing: .16em; text-transform: uppercase; animation: rise 1s .65s both; }
+    .music-toggle {
+      position: fixed; right: 24px; bottom: 22px; z-index: 5;
+      border: 1px solid #6d2935; border-radius: 99px; background: #100b0c;
+      color: #d45b6d; padding: 11px 15px; font: 10px var(--mono);
+      letter-spacing: .08em; cursor: pointer; transition: background .2s, color .2s;
     }
-    h1 {
-      margin: 26px 0 34px;
-      color: var(--red);
-      font: 400 clamp(76px, 15vw, 138px)/.88 var(--serif);
-      letter-spacing: -.065em;
-      animation: rise 1s .15s both;
-    }
-    .rule {
-      width: 54px;
-      height: 1px;
-      background: var(--red);
-      margin: 0 0 34px;
-      opacity: .8;
-      animation: widen 1s .45s both;
-    }
-    .letter {
-      max-width: 590px;
-      animation: rise 1s .35s both;
-    }
-    p {
-      margin: 0 0 19px;
-      color: #c8c0bd;
-      font-size: 15px;
-      line-height: 1.95;
-      font-weight: 400;
-    }
-    .signoff {
-      margin-top: 36px;
-      color: var(--soft-red);
-      font: italic 27px var(--serif);
-    }
-    footer {
-      margin-top: 64px;
-      color: #655d5b;
-      font: 9px var(--mono);
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      animation: rise 1s .65s both;
-    }
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes widen {
-      from { width: 0; opacity: 0; }
-      to { width: 54px; opacity: .8; }
-    }
+    .music-toggle:hover, .music-toggle.playing { background: #351019; color: #f0a0aa; }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes widen { from { width: 0; opacity: 0; } to { width: 54px; opacity: .8; } }
     @media (max-width: 520px) {
-      main { padding-top: 10vh; padding-bottom: 7vh; }
+      main { padding-top: 10vh; padding-bottom: 12vh; }
       p { font-size: 14px; line-height: 1.9; }
       footer { margin-top: 48px; }
+      .music-toggle { right: 15px; bottom: 15px; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; }
-    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; } }
   </style>
 </head>
 <body>
+  <audio id="ourSong" preload="none" loop src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
   <main>
     <span class="eyebrow">For Aruni · with gratitude</span>
     <h1>The End.</h1>
     <div class="rule" aria-hidden="true"></div>
-
     <article class="letter">
       <p>Aruni,</p>
-
       <p>I don't really know how to put everything into a few words, but I wanted to leave you with something honest.</p>
-
       <p>Thank you. For the time, the memories, the laughter, the little moments that probably seemed ordinary at the time but mean a lot to me now. The Bhopal night walk, Tao Bao, and the beginning of us on the 19th and 20th of March — I'll always be grateful that I got to experience those moments with you.</p>
-
       <p>I'm sorry for the times I hurt you, for the times I went quiet instead of explaining what was happening in my head, and for the moments when my actions didn't make you feel as valued as you deserved to feel. I know that saying sorry doesn't undo any of it. I just want you to know that I recognise it, and that I genuinely regret it.</p>
-
       <p>Whatever happens from here, I won't pretend that none of it mattered. It did. You did. I'm grateful that our paths crossed, and I'll carry the good parts with me.</p>
-
       <p>I hope life is kind to you. I hope you find reasons to smile, feel understood, and feel loved — always.</p>
-
       <p class="signoff">Thank you for everything.</p>
     </article>
-
     <footer>Some chapters stay with us.</footer>
   </main>
+  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">♪ play our song</button>
+  <script>
+    const song = document.getElementById('ourSong');
+    const toggle = document.getElementById('musicToggle');
+    toggle.addEventListener('click', async () => {
+      if (song.paused) {
+        try {
+          await song.play();
+          toggle.textContent = '♫ pause song';
+          toggle.classList.add('playing');
+          toggle.setAttribute('aria-pressed', 'true');
+        } catch (error) {
+          toggle.textContent = '♪ tap to play';
+        }
+      } else {
+        song.pause();
+        toggle.textContent = '♪ play our song';
+        toggle.classList.remove('playing');
+        toggle.setAttribute('aria-pressed', 'false');
+      }
+    });
+    song.addEventListener('ended', () => {
+      toggle.textContent = '♪ play our song';
+      toggle.classList.remove('playing');
+      toggle.setAttribute('aria-pressed', 'false');
+    });
+  </script>
 </body>
 </html>
