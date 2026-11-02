@@ -1,105 +1,192 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080808">
-  <title>The End.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=DM+Serif+Display:ital@0;1&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root { color-scheme: dark; --black:#080808; --red:#b3263e; --soft-red:#d45b6d; --white:#eee9e7; --muted:#99918f; --serif:"DM Serif Display",Georgia,serif; --sans:"Quicksand",sans-serif; --mono:"DM Mono",monospace; }
-    * { box-sizing:border-box; }
-    html,body { min-height:100%; background:var(--black); }
-    body { margin:0; min-height:100vh; overflow-x:hidden; background:radial-gradient(ellipse at 50% 38%,rgba(110,15,32,.12),transparent 52%),var(--black); color:var(--white); font-family:var(--sans); }
-    body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.12; z-index:2; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"); }
-    .intro { position:fixed; inset:0; z-index:10; display:grid; place-items:center; padding:24px; text-align:center; background:radial-gradient(ellipse at 50% 42%,rgba(110,15,32,.18),transparent 55%),#080808; transition:opacity .9s ease,visibility .9s ease; }
-    .intro.is-opening { opacity:0; visibility:hidden; pointer-events:none; }
-    .intro-inner { display:flex; flex-direction:column; align-items:center; }
-    .eyebrow { color:var(--muted); font:10px var(--mono); letter-spacing:.22em; text-transform:uppercase; }
-    .intro h1 { margin:25px 0 34px; color:var(--red); font:400 clamp(70px,14vw,120px)/.9 var(--serif); letter-spacing:-.06em; }
-    .open-button { border:1px solid #7d2b3a; border-radius:99px; background:transparent; color:#e6a0aa; padding:13px 32px; font:11px var(--mono); letter-spacing:.2em; cursor:pointer; transition:background .25s,color .25s,transform .25s; }
-    .open-button:hover { background:#351019; color:#fff; transform:translateY(-2px); }
-    main { width:min(620px,calc(100% - 44px)); min-height:100svh; margin:0 auto; padding:12vh 0 10vh; display:flex; flex-direction:column; justify-content:center; opacity:0; transition:opacity 1.1s ease; }
-    main.is-visible { opacity:1; }
-    .letter h2 { margin:25px 0 30px; color:var(--red); font:400 clamp(58px,11vw,92px)/.95 var(--serif); letter-spacing:-.05em; }
-    .rule { width:54px; height:1px; background:var(--red); margin:0 0 30px; opacity:.8; }
-    p { margin:0 0 19px; color:#c8c0bd; font-size:15px; line-height:1.95; }
-    .signoff { margin-top:28px; color:var(--soft-red); font:italic 27px var(--serif); }
-    footer { margin-top:58px; color:#655d5b; font:9px var(--mono); letter-spacing:.16em; text-transform:uppercase; }
-    .music-toggle { position:fixed; right:24px; bottom:22px; z-index:5; border:1px solid #6d2935; border-radius:99px; background:#100b0c; color:#d45b6d; padding:11px 15px; font:10px var(--mono); letter-spacing:.08em; cursor:pointer; }
-    .music-toggle:hover,.music-toggle.playing { background:#351019; color:#f0a0aa; }
-    @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
-    .letter > * { animation:rise .9s both; }
-    .letter h2 { animation-delay:.12s; } .rule { animation-delay:.2s; } .letter p { animation-delay:.28s; } footer { animation:rise .9s .45s both; }
-    @media(max-width:520px) { main { padding-top:10vh; padding-bottom:12vh; } p { font-size:14px; line-height:1.9; } .music-toggle { right:15px; bottom:15px; } }
-    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff8f4">
+<title>For Aruni ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
-  <audio id="ourSong" preload="auto" loop src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
-  <section class="intro" id="intro" aria-label="Opening screen">
-    <div class="intro-inner">
-      <span class="eyebrow">A little something for you</span>
-      <h1>The End.</h1>
-      <button class="open-button" id="openButton" type="button">OPEN</button>
+<audio id="siteSong" preload="auto" loop src="assets/Those_Eyes_-_New_West_(mp3.pm).mp3"></audio>
+<div class="deck" id="deck">
+  <div class="grain"></div>
+
+  <section class="slide gate-slide active" data-slide="0">
+    <div class="gate-content">
+      <span class="mini">PRIVATE PRESENTATION • FOR ARUNI ONLY</span>
+      <div class="big-heart">♡</div>
+      <h1>Alright.<br><em>you made it.</em></h1>
+      <p class="lead">Enter your name. You know the one.</p>
+      <form class="unlock-form" id="unlockForm">
+        <input id="secretName" type="text" placeholder="your name..." autocomplete="off" maxlength="30">
+        <button id="unlockButton" type="button">unlock →</button>
+      </form>
+      <p class="hint" id="unlockMessage"></p>
+      <button class="song-button" id="gateMusic" type="button">♪ play our song</button>
     </div>
   </section>
-  <main id="letterPage">
-    <article class="letter">
-      <span class="eyebrow">For you · sincerely</span>
-      <h2>I'm sorry.</h2>
-      <div class="rule" aria-hidden="true"></div>
-      <p>I'm truly sorry for hurting you and for the ways I may have made things harder. I know an apology can't undo that, but I wanted you to know that I mean it.</p>
-      <p>If you ever feel like talking, or if you ever need me, you can reach out whenever you want. No pressure, no expectations. I'll be here.</p>
-      <p class="signoff">Take care of yourself.</p>
-    </article>
-    <footer>Wishing you nothing but good things.</footer>
-  </main>
-  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">♫ pause song</button>
-  <script>
-    const song = document.getElementById('ourSong');
-    const intro = document.getElementById('intro');
-    const openButton = document.getElementById('openButton');
-    const letterPage = document.getElementById('letterPage');
-    const toggle = document.getElementById('musicToggle');
-    toggle.hidden = true;
 
-    openButton.addEventListener('click', () => {
-      // Playback begins directly within the user's click to satisfy browser autoplay rules.
-      const playback = song.play();
-      intro.classList.add('is-opening');
-      letterPage.classList.add('is-visible');
-      toggle.hidden = false;
-      playback.then(() => {
-        toggle.textContent = '♫ pause song';
-        toggle.classList.add('playing');
-        toggle.setAttribute('aria-pressed', 'true');
-      }).catch(() => {
-        toggle.textContent = '♪ tap to play';
-        toggle.classList.remove('playing');
-        toggle.setAttribute('aria-pressed', 'false');
-      });
-    });
+  <section class="slide hero-slide" data-slide="1">
+    <div class="slide-no">01</div>
+    <div class="hero-layout">
+      <div>
+        <span class="mini">I HAVE SOMETHING TO SAY</span>
+        <h2>I'm sorry,<br><em>my love.</em></h2>
+        <p>Not going to make this unnecessarily dramatic.<br>I just wanted to say this properly.</p>
+        <button class="next-prompt" data-next>alright, next →</button>
+      </div>
+      <figure class="hero-card tilt"><img src="assets/PXL_20260925_072819836.jpg" alt="A memory of us"><span>us ♡</span></figure>
+    </div>
+  </section>
 
-    toggle.addEventListener('click', async () => {
-      if (song.paused) {
-        try {
-          await song.play();
-          toggle.textContent = '♫ pause song';
-          toggle.classList.add('playing');
-          toggle.setAttribute('aria-pressed', 'true');
-        } catch (error) {
-          toggle.textContent = '♪ tap to play';
-        }
-      } else {
-        song.pause();
-        toggle.textContent = '♪ play our song';
-        toggle.classList.remove('playing');
-        toggle.setAttribute('aria-pressed', 'false');
-      }
-    });
-  </script>
+  <section class="slide letter-slide" data-slide="2">
+    <div class="slide-no">02</div>
+    <span class="mini">THE PART I ACTUALLY MEAN</span>
+    <div class="letter-box">
+      <div class="letter-top">Aruni,</div>
+      <p>I know things haven't been easy lately. We fight. Sometimes we misunderstand each other. Sometimes I don't know how to say what's going on in my head, so I go quiet — and I know that silence can hurt you and make you anxious.</p>
+      <p>I'm sorry for every time I've hurt you, intentionally or unintentionally. I don't want to pretend that saying sorry fixes everything. It doesn't.</p>
+      <button class="reveal-button" id="loveReveal" type="button">one thing, though →</button>
+      <p class="hidden-line" id="loveLine">I love you. A lot. ♡</p>
+    </div>
+  </section>
+
+  <section class="slide memory-slide" data-slide="3">
+    <div class="slide-no">03</div>
+    <span class="mini">ONE OF THE FIRST THINGS I REMEMBER</span>
+    <div class="memory-layout">
+      <div class="memory-copy">
+        <span class="date-pill">BHOPAL • MUN</span>
+        <h2>that<br><em>night walk.</em></h2>
+        <p>Before everything else, there was that Bhopal trip for MUN — and that night we went out for a walk near the hotel.</p>
+        <p class="soft">Nothing dramatic. Just that night. I remember it.</p>
+      </div>
+      <div class="memory-photo tilt"><img src="assets/20260913145623476.jpg" alt="A memory together"></div>
+    </div>
+  </section>
+
+  <section class="slide timeline-slide" data-slide="4">
+    <div class="slide-no">04</div>
+    <span class="mini">THE TIMELINE, BECAUSE APPARENTLY WE NEED ONE</span>
+    <h2 class="center-title">the important bits.</h2>
+    <div class="date-cards">
+      <button class="date-card" data-detail="Bhopal, MUN, a night walk near the hotel. A small memory from before everything changed.">
+        <span>BEFORE</span><strong>Bhopal / MUN</strong><small>that night</small>
+      </button>
+      <button class="date-card" data-detail="The day we stopped being just best friends. One day before we officially became us.">
+        <span>19.03.2026</span><strong>more than<br>best friends</strong><small>the beginning</small>
+      </button>
+      <button class="date-card featured" data-detail="The day we officially became boyfriend and girlfriend. 20 March 2026.">
+        <span>20.03.2026</span><strong>officially<br>us ♡</strong><small>the date</small>
+      </button>
+      <button class="date-card" data-detail="Our first date. Tao Bao. One of the first memories that belongs to just us.">
+        <span>FIRST DATE</span><strong>Tao Bao</strong><small>just us</small>
+      </button>
+    </div>
+    <p class="card-detail" id="cardDetail">Choose a date. I'll explain.</p>
+  </section>
+
+  <section class="slide gallery-slide" data-slide="5">
+    <div class="slide-no">05</div>
+    <div class="gallery-head"><span class="mini">THE PHOTO DUMP</span><h2>little pieces of <em>us.</em></h2><p>The photo, dots, and arrows all work.</p><div class="photo-reactions"><button data-reaction="❤️">❤️</button><button data-reaction="😂">😂</button><button data-reaction="😭">😭</button></div><p class="reaction-response" id="reactionResponse"></p></div>
+    <div class="photo-stage">
+      <button class="gallery-arrow prev" id="prevPhoto" type="button">←</button>
+      <figure class="big-polaroid tilt" id="mainPhoto">
+        <img id="galleryImage" src="assets/20260913145619135.jpg" alt="Memory">
+        <figcaption id="galleryCaption">one of my favourite pictures of us</figcaption>
+      </figure>
+      <button class="gallery-arrow next" id="nextPhoto" type="button">→</button>
+    </div>
+    <div class="photo-counter" id="photoCounter">01 / 12</div>
+    <div class="photo-dots" id="photoDots"></div>
+  </section>
+
+  <section class="slide mini-game-slide" data-slide="6">
+    <div class="slide-no">06</div>
+    <span class="mini">A VERY SERIOUS TEST</span>
+    <h2 class="center-title">how well do you remember?</h2>
+    <div class="quiz-box" id="quizBox">
+      <p class="quiz-question" id="quizQuestion">When did we officially become us?</p>
+      <div class="quiz-options" id="quizOptions">
+        <button data-answer="wrong">19.03.2026</button><button data-answer="correct">20.03.2026</button><button data-answer="wrong">Tao Bao day</button>
+      </div>
+      <p class="quiz-result" id="quizResult"></p>
+    </div>
+  </section>
+
+  <section class="slide reasons-slide" data-slide="7">
+    <div class="slide-no">07</div>
+    <span class="mini">THINGS I PROBABLY SHOULD SAY MORE</span>
+    <h2 class="center-title">choose one.</h2>
+    <div class="reason-buttons">
+      <button data-message="I love spending time with you. Even when we're doing absolutely nothing.">01</button>
+      <button data-message="I love your silly side. Probably more than I admit.">02</button>
+      <button data-message="I love the little moments we get together. They mean more to me than they look.">03</button>
+      <button data-message="I love the way our memories feel when I think back on them.">04</button>
+      <button data-message="I love you even on the difficult days.">05</button>
+    </div>
+    <div class="reason-message" id="reasonMessage">Pick a number. I'm waiting.</div>
+  </section>
+
+  <section class="slide promise-slide" data-slide="8">
+    <div class="slide-no">08</div>
+    <span class="mini">THIS IS THE PART WHERE I TRY TO BE SERIOUS</span>
+    <div class="promise-content">
+      <h2>I'll talk.<br>I'll listen.<br><em>I'll try.</em></h2>
+      <p>Not perfectly. Not overnight. But genuinely.</p>
+      <button class="big-button" id="promiseButton" type="button">press it. you'll see.</button>
+      <div class="promise-response" id="promiseResponse"></div>
+    </div>
+  </section>
+
+  <section class="slide fight-slide" data-slide="9">
+    <div class="slide-no">09</div>
+    <span class="mini">THE FIGHT SIMULATOR</span>
+    <h2 class="center-title">pick what usually happens.</h2>
+    <div class="fight-options">
+      <button>I overthink.</button><button>You go quiet.</button><button>Somehow both.</button>
+    </div>
+    <div class="fight-result" id="fightResult">Choose wisely.</div>
+  </section>
+
+  <section class="slide openwhen-slide" data-slide="10">
+    <div class="slide-no">10</div>
+    <span class="mini">OPEN WHEN</span>
+    <h2 class="center-title">pick one. obviously.</h2>
+    <div class="envelopes">
+      <button data-open="angry">when you're angry at me</button>
+      <button data-open="miss">when you miss me</button>
+      <button data-open="bored">when you're bored</button>
+    </div>
+    <div class="openwhen-result" id="openWhenResult"></div>
+  </section>
+
+  <section class="slide black-transition" data-slide="11"><div class="black-line" id="blackLine">wait.</div></section>
+
+  <section class="slide final-slide" data-slide="12">
+    <div class="slide-no">13</div><div class="final-photo"><img src="assets/PXL_20260925_072819836.jpg" alt="Us"></div>
+    <div class="final-copy"><div class="stats" id="interactionStats"></div>
+      <span class="mini">THAT'S IT. ALMOST.</span>
+      <h2>I'm still<br><em>choosing us.</em></h2>
+      <p>I'm sorry for the times I made you feel otherwise.</p>
+      <button class="heart-beat secret-heart" id="secretHeart" type="button" aria-label="heart">♥</button><div class="heart-note" id="heartNote"></div>
+      <strong>20.03.2026 → ∞</strong>
+      <button class="restart" id="restart" type="button">↺ again, if you want</button>
+    </div>
+  </section>
+</div>
+
+<nav class="deck-controls" id="controls" aria-label="Presentation controls">
+  <button id="prevSlide" type="button" aria-label="Previous slide">←</button>
+  <div class="progress" id="progress"></div>
+  <button id="nextSlide" type="button" aria-label="Next slide">→</button>
+  <button class="music-btn" id="musicBtn" type="button">♪</button>
+</nav>
+<div class="slide-counter" id="slideCounter">01 / 13</div>
+<script src="script.js?v=12"></script>
 </body>
 </html>
